@@ -4,8 +4,8 @@
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 
-const char* ssid = "LAMB";
-const char* password = "brkicbrkic";
+const char* ssid = "omar's iPhone";
+const char* password = "87654321";
 
 void setup() {
   Serial.begin(115200);
@@ -17,19 +17,6 @@ void setup() {
     delay(5000);
     ESP.restart();
   }
-
-  // Port defaults to 3232
-  // ArduinoOTA.setPort(3232);
-
-  // Hostname defaults to esp3232-[MAC]
-  // ArduinoOTA.setHostname("myesp32");
-
-  // No authentication by default
-  // ArduinoOTA.setPassword("admin");
-
-  // Password can be set with it's md5 value as well
-  // MD5(admin) = 21232f297a57a5a743894a0e4a801fc3
-  // ArduinoOTA.setPasswordHash("21232f297a57a5a743894a0e4a801fc3");
 
   ArduinoOTA
     .onStart([]() {
@@ -67,6 +54,6 @@ void setup() {
 void loop() {
   ArduinoOTA.handle();
 
-  Serial.println("Verzija 3");
+  Serial.println("UspiJo");
   delay(2000);
 }
