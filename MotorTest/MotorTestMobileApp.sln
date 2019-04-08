@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "MotorTest", "MotorTest\MotorTest.jsproj", "{DE004F94-1562-47D3-9000-BDD6254998EF}"
+Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "MotorTestMobileApp", "MotorTest\MotorTestMobileApp.jsproj", "{DE004F94-1562-47D3-9000-BDD6254998EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
