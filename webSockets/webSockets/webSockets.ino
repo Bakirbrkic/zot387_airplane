@@ -3,15 +3,13 @@
 #include <WebSocketsServer.h>
 #include <String>
 
-
-
 // Constants
 const char* ssid = "Himzo i Lejla";
 const char* password = "naspratu";
 const int ledPin = 12;
 Servo ser;
 
-String responseString = "from the other side: ";
+String flightCommand = "from the other side: ";
 
 int ledState = 0;
 int servoState = 0;
@@ -20,11 +18,7 @@ int servoState = 0;
 WebSocketsServer webSocket = WebSocketsServer(80);
 
 // Called when receiving any WebSocket message
-void onWebSocketEvent(uint8_t num,
-                      WStype_t type,
-                      uint8_t * payload,
-                      size_t length) {
-
+void onWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
   // Figure out the type of WebSocket event
   switch(type) {
 
@@ -46,14 +40,14 @@ void onWebSocketEvent(uint8_t num,
     case WStype_TEXT:
       Serial.printf("[%u] Text: %s\n", num, payload);
       //reinterpret_cast<char*>(payload);
-      responseString = "" + String(reinterpret_cast<char*>(payload));
-      ledState = responseString.substring(4,5).toInt();
-      servoState  = responseString.substring(9).toInt();
+      flightCommand = "" + String(reinterpret_cast<char*>(payload));
+      ledState = flightCommand.substring(4,5).toInt();
+      servoState  = flightCommand.substring(9).toInt();
       
       //digitalWrite(ledPin, ledState);
       
       Serial.printf("LedState: %d\nServoState: %d\n", ledState, servoState);
-      webSocket.sendTXT(num, responseString.c_str());
+      webSocket.sendTXT(num, flightCommand.c_str());
       break;
 
     // For everything else: do nothing
