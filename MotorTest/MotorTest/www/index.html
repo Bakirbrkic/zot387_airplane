@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <!-- Font Awesome --><!-- Font Awesome -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="css/mdb.min.css" rel="stylesheet">
+
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Motor Test</title>
+    </head>
+    <body>
+        <div class="container-fluid topBar">
+            <a class="appNav col-xs-2"><span class="fa fa-navicon"></span></a>
+            <a class="topTitle col-xs-8">Motor Test</a>
+            <a class="moreOpt col-xs-2"><span class="fa fa-cubes"></span></a>
+        </div>
+
+        <div class="sideBarWrap container-fluid col-xs-12">
+            <!--Card-->
+            <div class="card sideBar">
+                <!--Card content-->
+                <!--Title-->
+                <div class="card-title SideBarTitle">
+                    <a class="closeSideBar"><span class="fa fa-arrow-left"></span></a>
+                </div>
+                <div class="card-body">
+                    <!--Text-->
+                    <div class="card-text">
+                        <div class="sideTitle">Motor test</div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="sideBtn sideScanBtn">
+                                    
+                                </div>
+                                <div class="sideBtn sideFavBtn">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sideItem sideHomeBtn"><span class="fa fa-home fa-fw"></span> Home</div>
+                    </div>
+                </div>
+                <!--/.Card content-->
+            </div>
+            <!--/.Card-->
+        </div>
+
+
+        <div class="app">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6 reconnectBtn frBtn">
+                        <span class="fa fa-refresh"></span> Reconnect
+                    </div>
+                    <div class="col-6 espData frBtn">
+                        <span class="fa fa-plug"></span>
+                        <p class="data"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container motorSliderWrap">
+                <div class="row">
+                    <div class="col-3 motorSlider">
+                        <input type="range" min="0" max="100" name="motor1" value="0" id="motor1" class="motor" data-mnum="1">
+                        <p>Left-out</p>
+                    </div>
+                    <div class="col-3 motorSlider">
+                        <input type="range" min="0" max="100" name="motor2" value="0" id="motor2" class="motor" data-mnum="2">
+                        <p>Left-in</p>
+                    </div>
+                    <div class="col-3 motorSlider">
+                        <input type="range" min="0" max="100" name="motor3" value="0" id="motor3" class="motor" data-mnum="3">
+                        <p>Right-in</p>
+                    </div>
+                    <div class="col-3 motorSlider">
+                        <input type="range" min="0" max="100" name="motor4" value="0" id="motor4" class="motor" data-mnum="4">
+                        <p>Right-out</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container masterSliderWrap">
+                <div class="row">
+                    <div class="col-12">
+                        <input type="range" min="0" max="100" name="master" value="0" id="master" class="master">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+        <script type="text/javascript" src="scripts/jquery.js"></script>
+        <script type="text/javascript" src="scripts/index.js"></script>
+        <script type="text/javascript" src="scripts/navbar.js"></script>
+        <script type="text/javascript" src="scripts/main.js"></script>
+    </body>
+</html>
