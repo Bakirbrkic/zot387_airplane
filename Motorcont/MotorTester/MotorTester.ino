@@ -1,36 +1,40 @@
 #include<Servo.h>
-Servo motor,motor2,motor3,motor4;
-int pot=A2;
-int gnd=7;
+Servo motor[4];
+int i;
+int potPin=A2;
+int cntlPin=7;
+const int noMotors=4;
+const int lbnd[]={1735,1605,1605,1615};
+const int ubnd[]={1850,2150,1710,2150};
 void setup() {
   // put your setup code here, to run once:
-  motor.attach(3);
-  motor2.attach(5);
-  motor3.attach(6);
-  motor4.attach(9);
-  pinMode(gnd,INPUT_PULLUP);
-  delay(2000);
-  Serial.begin(9600);
+  pinMode(cntlPin,INPUT_PULLUP);
+  motor[0].attach(3);
+  motor[1].attach(5);
+  motor[2].attach(6);
+  motor[3].attach(9);
+  for(i=0;i<noMotors;i++){
+    motor[i].writeMicroseconds(lbnd[i]);
+  }
+  delay(5000);
+//  Serial.begin(9600);
 }
-long bl,bll;
+long throtle,tempMap,potVal;
 void loop() {
   // put your main code here, to run repeatedly:
-  bl=analogRead(pot);
-  bll=map(bl,0,1023,1000,2200);
-  if(digitalRead(gnd)){
-    motor.write(90);
-    motor2.write(90);
-    motor3.write(90);
-    motor4.write(90);
+  potVal=analogRead(potPin);
+  throtle=map(throtle,0,1023,0,100);
+  if(digitalRead(cntlPin)){
+    
   }
   else{
-    motor.writeMicroseconds(bll);
-    motor2.writeMicroseconds(bll);
-    motor3.writeMicroseconds(bll);
-    motor4.writeMicroseconds(bll);
+    for(i=0;i<noMotors;i++){
+      tempMap=map(potVal,0,1023,lbnd[i],ubnd[i]);
+      motor[i].writeMicroseconds(tempMap);
+    }
   }
-  Serial.println();
-  Serial.println(bl);
-  Serial.println(bll);
+//  Serial.println();
+//  Serial.println(bl);
+//  Serial.println(bll);
   delay(200);
 }
