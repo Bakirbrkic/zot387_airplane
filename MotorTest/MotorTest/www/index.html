@@ -56,33 +56,15 @@
         <div class="app">
             <div class="container">
                 <div class="row">
-                    <div class="col-6 reconnectBtn frBtn">
-                        <span class="fa fa-refresh"></span> Reconnect
+                    <div class="col-3 reconnectBtn frBtn">
+                        <span class="fa fa-refresh"></span> Restart Motors
                     </div>
-                    <div class="col-6 espData frBtn">
+                    <div class="col-3">
+                        <span class="fa fa-mail"></span> IP: <span class="ipSpan"></span>
+                    </div>
+                    <div class="col-6 espData">
                         <span class="fa fa-plug"></span>
-                        <p class="data"></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container motorSliderWrap">
-                <div class="row">
-                    <div class="col-3 motorSlider">
-                        <input type="range" min="0" max="100" name="motor1" value="0" id="motor1" class="motor" data-mnum="1">
-                        <p>Left-out</p>
-                    </div>
-                    <div class="col-3 motorSlider">
-                        <input type="range" min="0" max="100" name="motor2" value="0" id="motor2" class="motor" data-mnum="2">
-                        <p>Left-in</p>
-                    </div>
-                    <div class="col-3 motorSlider">
-                        <input type="range" min="0" max="100" name="motor3" value="0" id="motor3" class="motor" data-mnum="3">
-                        <p>Right-in</p>
-                    </div>
-                    <div class="col-3 motorSlider">
-                        <input type="range" min="0" max="100" name="motor4" value="0" id="motor4" class="motor" data-mnum="4">
-                        <p>Right-out</p>
+                        <span class="data"></span>
                     </div>
                 </div>
             </div>
@@ -90,11 +72,32 @@
             <div class="container masterSliderWrap">
                 <div class="row">
                     <div class="col-12">
-                        <input type="range" min="0" max="100" name="master" value="0" id="master" class="master">
+                        <p><span class="fa fa-tachometer"></span> Throtle: <span class="thrVal"></span></p>
+                        <input type="range" min="0" max="4095" name="master" value="0" step="40" id="master" class="master">
                     </div>
                 </div>
             </div>
 
+            <div class="container servoSliderWrap">
+                <div class="row">
+                    <div class="col-3 servoSlider">
+                        <input type="range" min="0" max="180" name="servo1" value="0" id="servo1" class="servo" data-mnum="1">
+                        <p>wing-left</p>
+                    </div>
+                    <div class="col-3 servoSlider">
+                        <input type="range" min="0" max="180" name="servo2" value="0" id="servo2" class="servo" data-mnum="2">
+                        <p>tail-left</p>
+                    </div>
+                    <div class="col-3 servoSlider">
+                        <input type="range" min="0" max="180" name="servo3" value="0" id="servo3" class="servo" data-mnum="3">
+                        <p>tail-right</p>
+                    </div>
+                    <div class="col-3 servoSlider">
+                        <input type="range" min="0" max="180" name="servo4" value="0" id="servo4" class="servo" data-mnum="4">
+                        <p>wing-right</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
 

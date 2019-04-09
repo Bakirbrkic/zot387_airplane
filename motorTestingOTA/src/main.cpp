@@ -8,17 +8,24 @@
 #include <ArduinoOTA.h>
 
 // Constants
-const char* ssid = "omar's iPhone";
-const char* password = "87654321";
-const int ledPin = 12;
-Servo ser;
+const char* ssid = "Airlines";
+const char* password = "09876543";
+String flightCommand = "m:0000s1:000s2:000s3:000s4:000";
 
-String flightCommand = "from the other side: ";
+const int motorPin[]={33,32,23,19};
 
-int ledState = 0;
-int servoState = 0;
+const int noMotors=4;
+const int adcMax=4095;
+
+const int lbnd[]={1735,1605,1615,1615};
+const int ubnd[]={1850,2150,1710,2150};
+
+Servo motor[noMotors];
+
 
 // Globals
+int i,refreshBtn;
+long throtle, realThrotle, tempThrotle;
 WebSocketsServer webSocket = WebSocketsServer(80);
 
 // Called when receiving any WebSocket message
@@ -42,16 +49,13 @@ void onWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
 
     // Echo text message back to client
     case WStype_TEXT:
-      Serial.printf("[%u] Text: %s\n", num, payload);
+      //Serial.printf("[%u] Text: %s\n", num, payload);
       //reinterpret_cast<char*>(payload);
       flightCommand = "" + String(reinterpret_cast<char*>(payload));
-      ledState = flightCommand.substring(4,5).toInt();
-      servoState  = flightCommand.substring(9).toInt();
-      
-      //digitalWrite(ledPin, ledState);
-      
-      Serial.printf("LedState: %d\nServoState: %d\n", ledState, servoState);
-      webSocket.sendTXT(num, flightCommand.c_str());
+        //flightCommand = "m:0000s1:000s2:000s3:000s4:000s5:000r:0"
+      throtle = flightCommand.substring(2,6).toInt();
+      refreshBtn = flightCommand.substring(38,39).toInt();
+      webSocket.broadcastTXT(flightCommand.c_str());
       break;
 
     // For everything else: do nothing
@@ -66,14 +70,16 @@ void onWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
   }
 }
 
+void resetMotors(){
+  for(i=0;i<noMotors;i++){
+    motor[i].writeMicroseconds(600);
+  }
+  delay(3000);
+}
+
 void setup() {
   // Start Serial port
   Serial.begin(115200);
-
-  //LED
-  pinMode(ledPin, OUTPUT);
-  //servo
-  ser.attach(14);
 
   // Connect to access point
   Serial.println("Connecting");
@@ -117,18 +123,31 @@ void setup() {
   Serial.print("My IP address: ");
   Serial.println(WiFi.localIP());
 
+  for(i=0;i<noMotors;i++){
+    motor[i].attach(motorPin[i]);
+  }
+  resetMotors();
+  for(i=0;i<noMotors;i++){
+    motor[i].writeMicroseconds(lbnd[i]);
+  }
   // Start WebSocket server and assign callback
   webSocket.begin();
   webSocket.onEvent(onWebSocketEvent);
+  
+  delay(2000);
 }
 
 void loop() {
   //OTA update handle
   ArduinoOTA.handle();
-
+  
   // Look for and handle WebSocket data
   webSocket.loop();
-
-  digitalWrite(ledPin, ledState);
-  ser.write(servoState);
+  if(refreshBtn)
+    resetMotors();
+  tempThrotle=throtle;
+  for(i=0;i<noMotors;i++){
+    realThrotle=map(tempThrotle,0,adcMax,lbnd[i],ubnd[i]);
+    motor[i].writeMicroseconds(realThrotle);
+  }
 }

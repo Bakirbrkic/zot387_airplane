@@ -132,15 +132,30 @@ body{
     width: 100%;
     margin-bottom: 20px;
 }
-/*//////////////////////////////////////////////////*/
-.motorSlider{
-    padding-top: 20px;
-    /*background-color: rgba(0,0,0,0.4);*/ 
+.app .container{
+    margin-top: 10px;
 }
-.motor{
+/*//////////////////////////////////////////////////*/
+
+.servoSlider{
+    padding-top: 20px;
+}
+.servo{
     -webkit-appearance: slider-vertical; /* WebKit */
     height: 50vh;
     width: 100%;
+}
+.masterSliderWrap{
+    background-color: rgba(0,0,0,0.4);
+}
+.frBtn{
+    padding-top: 5px;
+    background-color: rgba(0,0,0,0.4);   
+}
+.frBtn:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 1s;
 }
 .master{
     width: 100%;
