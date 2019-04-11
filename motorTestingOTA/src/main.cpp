@@ -82,12 +82,17 @@ void setup() {
   Serial.begin(115200);
 
   // Connect to access point
+  /*
   Serial.println("Connecting");
   WiFi.begin(ssid, password);
   while ( WiFi.status() != WL_CONNECTED ) {
     delay(500);
     Serial.print(".");
   }
+  */
+
+  //Create access point
+  WiFi.softAP(ssid, password);
 
   //OTA updatee handle
     ArduinoOTA
@@ -121,7 +126,7 @@ void setup() {
   // Print our IP address
   Serial.println("Connected!");
   Serial.print("My IP address: ");
-  Serial.println(WiFi.localIP());
+  Serial.println(WiFi.softAPIP());
 
   for(i=0;i<noMotors;i++){
     motor[i].attach(motorPin[i]);
