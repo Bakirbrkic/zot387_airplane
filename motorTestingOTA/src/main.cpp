@@ -13,18 +13,25 @@ const char* password = "09876543";
 String flightCommand = "m:0000s1:000s2:000s3:000s4:000";
 
 const int motorPin[]={33,32,23,19};
+const int LEDpin = 4;
+
+const int LEDChannel = 4;
 
 const int noMotors=4;
 const int adcMax=4095;
+const int pwmRes=1023;
 
 const int lbnd[]={1735,1605,1615,1615};
 const int ubnd[]={1850,2150,1710,2150};
 
 Servo motor[noMotors];
 
+const int freq = 5000;
+const int resolution = 10;
+
 
 // Globals
-int i,refreshBtn;
+int i,refreshBtn, LEDs = 0;
 long throtle, realThrotle, tempThrotle;
 WebSocketsServer webSocket = WebSocketsServer(80);
 
@@ -52,9 +59,10 @@ void onWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
       //Serial.printf("[%u] Text: %s\n", num, payload);
       //reinterpret_cast<char*>(payload);
       flightCommand = "" + String(reinterpret_cast<char*>(payload));
-        //flightCommand = "m:0000s1:000s2:000s3:000s4:000s5:000r:0"
+        //flightCommand = "m:0000s1:000s2:000s3:000s4:000s5:000r:0l:0"
       throtle = flightCommand.substring(2,6).toInt();
       refreshBtn = flightCommand.substring(38,39).toInt();
+      //LEDs = flightCommand.substring(41,42).toInt();
       webSocket.broadcastTXT(flightCommand.c_str());
       break;
 
@@ -77,19 +85,26 @@ void resetMotors(){
   delay(3000);
 }
 
+void fade(int channel, bool out=false){
+  int i;
+  int dilej=3;
+  if(out){
+    for(i=pwmRes;i>=0;i--){
+      ledcWrite(channel,i);
+      delay(dilej);
+    }
+  }
+  else{
+    for(i=0;i<pwmRes;i++){
+      ledcWrite(channel,i);
+      delay(dilej);
+    }
+  }
+}
+
 void setup() {
   // Start Serial port
   Serial.begin(115200);
-
-  // Connect to access point
-  /*
-  Serial.println("Connecting");
-  WiFi.begin(ssid, password);
-  while ( WiFi.status() != WL_CONNECTED ) {
-    delay(500);
-    Serial.print(".");
-  }
-  */
 
   //Create access point
   WiFi.softAP(ssid, password);
@@ -135,10 +150,13 @@ void setup() {
   for(i=0;i<noMotors;i++){
     motor[i].writeMicroseconds(lbnd[i]);
   }
+
   // Start WebSocket server and assign callback
   webSocket.begin();
   webSocket.onEvent(onWebSocketEvent);
-  
+  ledcSetup(LEDChannel,freq,resolution);
+  ledcAttachPin(LEDpin,LEDChannel);
+  fade(LEDChannel);
   delay(2000);
 }
 
@@ -155,4 +173,5 @@ void loop() {
     realThrotle=map(tempThrotle,0,adcMax,lbnd[i],ubnd[i]);
     motor[i].writeMicroseconds(realThrotle);
   }
+  digitalWrite(LEDpin, LEDs);
 }
