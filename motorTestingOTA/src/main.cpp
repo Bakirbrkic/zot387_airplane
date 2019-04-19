@@ -185,6 +185,6 @@ void loop() {
     motor[i].writeMicroseconds(realThrotle);
   }
   for(i=0;i<noVolans;i++){
-    volan[i].writeMicroseconds(volanAngle[i]);
+    volan[i].write(volanAngle[i]);
   }
 }

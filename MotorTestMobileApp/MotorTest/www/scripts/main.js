@@ -15,6 +15,7 @@ var flightSocket = new WebSocket("ws://" + ipAdd, "arduino");
 
 function fly() {
 	flight = "m:"+throtle+"s0:"+servo[0]+"s1:"+servo[1]+"s2:"+servo[2]+"s3:"+servo[3]+"s4:"+servo[4]+"r:"+restart;
+	$(".fc").html(flight);
 	restart=0;
 	if (flightSocket.readyState === flightSocket.CLOSING || flightSocket.readyState === flightSocket.CLOSED) {
 		$(".data").html("Connection lost, reconnecting...");
