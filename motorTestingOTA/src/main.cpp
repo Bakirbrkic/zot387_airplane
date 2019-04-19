@@ -10,7 +10,7 @@
 // Constants
 const char* ssid = "Airlines";
 const char* password = "09876543";
-String flightCommand = "m:0000s1:000s2:000s3:000s4:000";
+String flightCommand = "m:0000s1:000s2:000s3:000s4:000s5:000r:0l:0";
 
 const int motorPin[]={33,32,23,19};
 const int LEDpin = 4;
