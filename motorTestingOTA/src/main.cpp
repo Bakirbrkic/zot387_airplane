@@ -10,9 +10,10 @@
 // Constants
 const char* ssid = "Airlines";
 const char* password = "09876543";
-String flightCommand = "m:0000s1:000s2:000s3:000s4:000s5:000r:0l:0";
+String flightCommand = "m:0000s0:090s1:090s2:090s3:090s4:090r:0";
 
 const int motorPin[]={33,32,23,19};
+const int volanPin[]={19,18,17,16,5}; //s0-wing-left-19 s1-wing-right-18 s2-tail-left-17 s3-tail-right-16 s4-centar-5
 const int LEDpin = 4;
 
 const int LEDChannel = 4;
@@ -20,18 +21,21 @@ const int LEDChannel = 4;
 const int noMotors=4;
 const int adcMax=4095;
 const int pwmRes=1023;
+const int noVolans=5;
 
 const int lbnd[]={1735,1605,1615,1615};
 const int ubnd[]={1850,2150,1710,2150};
 
 Servo motor[noMotors];
+Servo volan[noVolans];
 
 const int freq = 5000;
 const int resolution = 10;
 
 
 // Globals
-int i,refreshBtn, LEDs = 0;
+int i,refreshBtn = 0;
+int volanAngle[] = {0,0,0,0,0};
 long throtle, realThrotle, tempThrotle;
 WebSocketsServer webSocket = WebSocketsServer(80);
 
@@ -59,10 +63,14 @@ void onWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
       //Serial.printf("[%u] Text: %s\n", num, payload);
       //reinterpret_cast<char*>(payload);
       flightCommand = "" + String(reinterpret_cast<char*>(payload));
-        //flightCommand = "m:0000s1:000s2:000s3:000s4:000s5:000r:0l:0"
+        //flightCommand = "m:0000s0:090s1:090s2:044s3:090s4:090r:0"
       throtle = flightCommand.substring(2,6).toInt();
+      volanAngle[0] = flightCommand.substring(9,12).toInt();
+      volanAngle[1] = flightCommand.substring(15,18).toInt();
+      volanAngle[2] = flightCommand.substring(21,24).toInt();
+      volanAngle[3] = flightCommand.substring(27,30).toInt();
+      volanAngle[4] = flightCommand.substring(33,36).toInt();
       refreshBtn = flightCommand.substring(38,39).toInt();
-      //LEDs = flightCommand.substring(41,42).toInt();
       webSocket.broadcastTXT(flightCommand.c_str());
       break;
 
@@ -150,6 +158,9 @@ void setup() {
   for(i=0;i<noMotors;i++){
     motor[i].writeMicroseconds(lbnd[i]);
   }
+  for(i=0;i<noVolans;i++){
+    volan[i].attach(volanPin[i]);
+  }
 
   // Start WebSocket server and assign callback
   webSocket.begin();
@@ -173,5 +184,7 @@ void loop() {
     realThrotle=map(tempThrotle,0,adcMax,lbnd[i],ubnd[i]);
     motor[i].writeMicroseconds(realThrotle);
   }
-  digitalWrite(LEDpin, LEDs);
+  for(i=0;i<noVolans;i++){
+    volan[i].writeMicroseconds(volanAngle[i]);
+  }
 }

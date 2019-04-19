@@ -2,11 +2,10 @@
 
 var throtle = "0000";
 var servo = ["090", "090", "090", "090", "090"];
-var flight = "m:0000s1:000s2:000s3:000s4:000";
+var flight = "m:0000s1:000s2:000s3:000s4:000r:0";
 var lastFlight;
 var ipAdd;
 var restart=0;
-var light=0;
 
 
 ipAdd = localStorage.getItem("ipAdd");
@@ -15,7 +14,7 @@ $(".ipSpan").html(ipAdd);
 var flightSocket = new WebSocket("ws://" + ipAdd, "arduino");
 
 function fly() {
-	flight = "m:"+throtle+"s0:"+servo[0]+"s1:"+servo[1]+"s2:"+servo[2]+"s3:"+servo[3]+"s4:"+servo[4]+"r:"+restart+"l:"+light;
+	flight = "m:"+throtle+"s0:"+servo[0]+"s1:"+servo[1]+"s2:"+servo[2]+"s3:"+servo[3]+"s4:"+servo[4]+"r:"+restart;
 	restart=0;
 	if (flightSocket.readyState === flightSocket.CLOSING || flightSocket.readyState === flightSocket.CLOSED) {
 		$(".data").html("Connection lost, reconnecting...");
@@ -46,7 +45,7 @@ $("#master").on("input", function () {
 	throtle = s;
 });
 
-$(".servo").on("input", function () {
+$(".servo, .servoH").on("input", function () {
 	var i = $(this).attr("data-mnum");
 	var id = $(this).attr("id");
 	var s = $("#"+id).val();
@@ -75,7 +74,4 @@ flightSocket.onmessage = function (event) {
 
 $(".reconnectBtn").click(function(){
 	restart=1;
-})
-$(".lightBtn").click(function() {
-	light = 1;
 })

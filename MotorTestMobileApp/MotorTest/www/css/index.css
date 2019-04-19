@@ -142,7 +142,10 @@ body{
 }
 .servo{
     -webkit-appearance: slider-vertical; /* WebKit */
-    height: 50vh;
+    height: 35vh;
+    width: 100%;
+}
+.servoH{
     width: 100%;
 }
 .masterSliderWrap{
