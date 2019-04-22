@@ -13,7 +13,7 @@ const char* password = "09876543";
 String flightCommand = "m:0000s0:090s1:090s2:090s3:090s4:090r:0";
 
 const int motorPin[]={33,32,23,19};
-const int volanPin[]={19,18,17,16,5}; //s0-wing-left-19 s1-wing-right-18 s2-tail-left-17 s3-tail-right-16 s4-centar-5
+const int volanPin[]={15,18,17,16,5}; //s0-wing-left-19 s1-wing-right-18 s2-tail-left-17 s3-tail-right-16 s4-centar-5
 const int LEDpin = 4;
 
 const int LEDChannel = 4;
