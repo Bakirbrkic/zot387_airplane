@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Font Awesome --><!-- Font Awesome -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>CSAir - EPU101</title>
+</head>
+<body>
+    <div class="container-fluid topBar">
+        <a class="appNav col-xs-2"><span class="fa fa-navicon"></span></a>
+        <a class="topTitle col-xs-8">CSAir - EPU101</a>
+        <a class="moreOpt col-xs-2"><span class="fa fa-cubes"></span></a>
+    </div>
+
+    <div class="sideBarWrap container-fluid col-xs-12">
+        <!--Card-->
+        <div class="card sideBar">
+            <!--Card content-->
+            <!--Title-->
+            <div class="card-title SideBarTitle">
+                <a class="closeSideBar"><span class="fa fa-arrow-left"></span></a>
+            </div>
+            <div class="card-body">
+                <!--Text-->
+                <div class="card-text">
+                    <div class="sideTitle">CS Airlines</div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="sideBtn sideScanBtn">
+
+                            </div>
+                            <div class="sideBtn sideFavBtn">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sideItem sideHomeBtn"><span class="fa fa-home fa-fw"></span> Home</div>
+                </div>
+            </div>
+            <!--/.Card content-->
+        </div>
+        <!--/.Card-->
+    </div>
+
+
+    <div class="app">
+
+        <div class="upper">
+
+            <div class="container infoBoardContainer">
+                <div class="row infoRow">
+                    <div class="infoItem col-2">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-plug"></span><br>
+                            <span class="infoConnected">Connected</span>
+                        </div>
+                    </div>
+                    <div class="infoItem col-4">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-fighter-jet"></span><br>
+                            <span class="infoAddress">192.168.4.1</span>
+                        </div>
+                    </div>
+                    <div class="infoItem col-6">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-gamepad"></span><br>
+                            <span class="infoCommand">m:0000s0:090s1:090s2:090s3:090s4:090r:0</span>
+                        </div>
+                    </div>
+                    <div class="infoItem col-2">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-tachometer"></span><br>
+                            <span class="infoThrotle">0</span> <span>%</span>
+                        </div>
+                    </div>
+                    <div class="infoItem col-4">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-bolt"></span><br>
+                            <span class="infoCurrent">M0: 0A | M1: 0A | M2: 0A | M3: 0A</span>
+                        </div>
+                    </div>
+                    <div class="infoItem col-2">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-battery-half"></span><br>
+                            <span class="infoBattery">100</span> <span>%</span>
+                        </div>
+                    </div>
+                    <div class="infoItem col-2">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-thermometer-half"></span><br>
+                            <span class="infoTemp">23.0</span> <span>&#8451;</span>
+                        </div>
+                    </div>
+                    <div class="infoItem col-2">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-tint"></span><br>
+                            <span class="infoHumid">70.0</span> <span>%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hr"></div>
+            </div>
+
+            <div class="container switchContainer">
+                <div class="row switchRow">
+                    <div class="switchItem resetMotorsSwitch col-2">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-refresh"></span><br>
+                            <span>Restart Motors</span>
+                        </div>
+                    </div>
+                    <div class="switchItem col-2">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-balance-scale"></span><br>
+                            <span>Reset Servos</span>
+                        </div>
+                    </div>
+                    <div class="switchItem col-2">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-lightbulb-o"></span><br>
+                            <span>Switch LEDs</span>
+                        </div>
+                    </div>
+                    <div class="switchItem col-2">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-circle-o-notch"></span><br>
+                            <span>Wheeles</span>
+                        </div>
+                    </div>
+                    <div class="switchItem col-4">
+                        <div class="btnContent">
+                            <span class="fa fa-fw fa-send"></span><br>
+                            <span>Remove before flight</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hr"></div>
+            </div>
+
+        </div>
+
+        <div class="container-fluid controlContainer">
+            <div class="row">
+                <div class="controlPad col-6">
+                    <div class="controlArea controlAreaLeft">
+                        <div class="joystick jLeft"></div>
+                    </div>
+                </div>
+                <div class="controlPad col-6">
+                    <div class="controlArea controlAreaRight">
+                        <div class="joystick jRight"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="scripts/touch-punch.min.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script type="text/javascript" src="scripts/navbar.js"></script>
+    <script type="text/javascript" src="scripts/main.js"></script>
+</body>
+</html>
