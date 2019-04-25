@@ -12,19 +12,19 @@ const char* ssid = "Airlines";
 const char* password = "09876543";
 String flightCommand = "m:0000s0:090s1:090s2:090s3:090s4:090r:0";
 
-const int motorPin[]={33,32,23,19};
-const int volanPin[]={15,18,17,16,5}; //s0-wing-left-19 s1-wing-right-18 s2-tail-left-17 s3-tail-right-16 s4-centar-5
+const int motorPin[]={13,12,14,27};
+const int volanPin[]={19,18,17,16,5}; //s0-wing-left-19 s1-wing-right-18 s2-tail-left-17 s3-tail-right-16 s4-centar-5
 const int LEDpin = 4;
 
-const int LEDChannel = 4;
+const int LEDChannel = 10;
 
 const int noMotors=4;
+const int noVolans=5;
 const int adcMax=4095;
 const int pwmRes=1023;
-const int noVolans=5;
 
-const int lbnd[]={1735,1605,1615,1615};
-const int ubnd[]={1850,2150,1710,2150};
+const int lbnd[]={1742,1160,1619,1615};
+const int ubnd[]={1850,1670,1730,2160};
 
 Servo motor[noMotors];
 Servo volan[noVolans];
@@ -35,7 +35,7 @@ const int resolution = 10;
 
 // Globals
 int i,refreshBtn = 0;
-int volanAngle[] = {0,0,0,0,0};
+int volanAngle[] = {90,90,90,90,90};
 long throtle, realThrotle, tempThrotle;
 WebSocketsServer webSocket = WebSocketsServer(80);
 
@@ -182,9 +182,16 @@ void loop() {
   tempThrotle=throtle;
   for(i=0;i<noMotors;i++){
     realThrotle=map(tempThrotle,0,adcMax,lbnd[i],ubnd[i]);
-    motor[i].writeMicroseconds(realThrotle);
+    // Serial.print(i);
+    // Serial.print(": ");
+    // Serial.println(realThrotle);
+    if(tempThrotle==0)
+      motor[i].writeMicroseconds(lbnd[i]-100);
+    else motor[i].writeMicroseconds(realThrotle);
   }
+  Serial.println();
   for(i=0;i<noVolans;i++){
     volan[i].write(volanAngle[i]);
   }
+  // delay(200);
 }
