@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="io.cordova.myapp311807" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US">
+<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="ba.csairlines.pilot" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US">
   <name>CS Airlines Pilot</name>
-  <description>A blank project that uses Apache Cordova to help you build an app that targets multiple mobile platforms: Android, iOS, Windows, and Windows Phone.</description>
-  <author href="http://cordova.io" email="dev@cordova.apache.org">Apache Cordova Team </author>
+  <description>esp32airplane pilot application</description>
+  <author href="http://cordova.io" email="dev@cordova.apache.org">EPU</author>
   <content src="index.html" />
   <access origin="*" />
   <vs:features />
@@ -106,5 +106,9 @@
   <platform name="wp8">
     <splash src="res/screens/wp8/SplashScreenImage.png" width="768" height="1280" />
   </platform>
-  <plugin name="cordova-plugin-crosswalk-webview" version="2.1.0" />
+  <preference name="Orientation" value="landscape" />
+  <preference name="Fullscreen" value="True" />
+  <preference name="android-minSdkVersion" value="19" />
+  <preference name="android-targetSdkVersion" value="19" />
+  <plugin name="cordova-plugin-compat" version="1.1.0" src="C:\Users\Bakir\Documents\Visual Studio 2015\Projects\esp32airplane\CS Airlines Pilot\CS Airlines Pilot\plugins\cordova-plugin-compat" />
 </widget>

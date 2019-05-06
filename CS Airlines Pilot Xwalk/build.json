@@ -1,0 +1,11 @@
+{
+     "android": {
+         "release": {
+              "alias": "nakoBa",
+              "keystore": "C:\\Program Files\\Java\\jdk1.8.0_144\\bin\\nakoBaFull_key.keystore",
+              "keystoreType": "",
+              "password": "nemanako123",
+              "storePassword": "nemanako123"
+         }
+     }
+ }
