@@ -167,12 +167,12 @@ body{
 }
 .joystick{
     left: calc(50% - 25px);
-    top: calc(25vh - 25px);
+    top: calc(50% - 25px);
     position: relative;
     height: 50px;
     width: 50px;
     background-color: green;
 }
 .jLeft{
-    top: calc(50vh - 50px);
+    top: calc(100% - 50px);
 }

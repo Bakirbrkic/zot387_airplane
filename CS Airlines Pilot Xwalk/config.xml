@@ -112,4 +112,5 @@
   <preference name="android-targetSdkVersion" value="15" />
   <preference name="android-minSdkVersion" value="15" />
   <plugin name="cordova-plugin-crosswalk-webview" version="2.4.0" />
+  <plugin name="admob" version="5.5.0" />
 </widget>

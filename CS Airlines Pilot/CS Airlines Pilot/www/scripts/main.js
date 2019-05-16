@@ -98,7 +98,7 @@ $(".jLeft").draggable({
         //$('#coordsL').text(rel_left + ", " + rel_top);
     },
     stop: function(){
-    	$(this).css("top","calc(50vh - 50px + "+throtle+"px)");
+    	$(this).css("top","calc(100% - 50px + "+throtle+"px)");
     	$(this).css("left","calc(50% - 25px)");
     }
 });
