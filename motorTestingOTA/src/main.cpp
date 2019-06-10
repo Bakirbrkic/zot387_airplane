@@ -14,9 +14,6 @@ String flightCommand = "m:0000s0:090s1:090s2:090s3:090s4:090r:0";
 
 const int motorPin[]={13,12,14,27};
 const int volanPin[]={19,18,17,16,5}; //s0-wing-left-19 s1-wing-right-18 s2-tail-left-17 s3-tail-right-16 s4-centar-5
-const int LEDpin = 4;
-
-const int LEDChannel = 10;
 
 const int noMotors=4;
 const int noVolans=5;
@@ -35,20 +32,22 @@ const int resolution = 10;
 
 // Globals
 int i,refreshBtn = 0;
+
 int volanAngle[] = {90,90,90,90,90};
 long throtle, realThrotle, tempThrotle;
+
 WebSocketsServer webSocket = WebSocketsServer(80);
+int pingPeriod = 200;
+unsigned long timeLastPing = 0;
 
 // Called when receiving any WebSocket message
 void onWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length) {
   // Figure out the type of WebSocket event
   switch(type) {
-
     // Client has disconnected
     case WStype_DISCONNECTED:
       Serial.printf("[%u] Disconnected!\n", num);
       break;
-
     // New client has connected
     case WStype_CONNECTED:
       {
@@ -58,12 +57,12 @@ void onWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
       }
       break;
 
-    // Echo text message back to client
+    // Recived message from client
     case WStype_TEXT:
-      //Serial.printf("[%u] Text: %s\n", num, payload);
+      //Serial.printf("[%u] Command: %s\n", num, payload);
       //reinterpret_cast<char*>(payload);
       flightCommand = "" + String(reinterpret_cast<char*>(payload));
-        //flightCommand = "m:0000s0:090s1:090s2:044s3:090s4:090r:0"
+      //flightCommand = "m:0000s0:090s1:090s2:044s3:090s4:090r:0"
       throtle = flightCommand.substring(2,6).toInt();
       volanAngle[0] = flightCommand.substring(9,12).toInt();
       volanAngle[1] = flightCommand.substring(15,18).toInt();
@@ -71,7 +70,8 @@ void onWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
       volanAngle[3] = flightCommand.substring(27,30).toInt();
       volanAngle[4] = flightCommand.substring(33,36).toInt();
       refreshBtn = flightCommand.substring(38,39).toInt();
-      webSocket.broadcastTXT(flightCommand.c_str());
+      //webSocket.broadcastTXT(flightCommand.c_str());
+      //webSocket.sendTXT(0, flightCommand);
       break;
 
     // For everything else: do nothing
@@ -87,7 +87,7 @@ void onWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
 }
 
 void resetMotors(){
-  for(i=0;i<noMotors;i++){
+  for(i = 0; i < noMotors;i++){
     motor[i].writeMicroseconds(600);
   }
   delay(3000);
@@ -151,23 +151,21 @@ void setup() {
   Serial.print("My IP address: ");
   Serial.println(WiFi.softAPIP());
 
-  for(i=0;i<noMotors;i++){
+  for(i = 0; i < noMotors; i++){
     motor[i].attach(motorPin[i]);
   }
   resetMotors();
-  for(i=0;i<noMotors;i++){
+  for(i = 0; i < noMotors; i++){
     motor[i].writeMicroseconds(lbnd[i]);
   }
-  for(i=0;i<noVolans;i++){
+  for(i = 0; i < noVolans; i++){
     volan[i].attach(volanPin[i]);
   }
 
   // Start WebSocket server and assign callback
   webSocket.begin();
   webSocket.onEvent(onWebSocketEvent);
-  ledcSetup(LEDChannel,freq,resolution);
-  ledcAttachPin(LEDpin,LEDChannel);
-  fade(LEDChannel);
+
   delay(2000);
 }
 
@@ -180,18 +178,21 @@ void loop() {
   if(refreshBtn)
     resetMotors();
   tempThrotle=throtle;
-  for(i=0;i<noMotors;i++){
+  for(i = 0; i < noMotors;i++){
     realThrotle=map(tempThrotle,0,adcMax,lbnd[i],ubnd[i]);
-    // Serial.print(i);
-    // Serial.print(": ");
-    // Serial.println(realThrotle);
     if(tempThrotle==0)
       motor[i].writeMicroseconds(lbnd[i]-100);
-    else motor[i].writeMicroseconds(realThrotle);
+    else 
+      motor[i].writeMicroseconds(realThrotle);
   }
-  Serial.println();
+  
   for(i=0;i<noVolans;i++){
     volan[i].write(volanAngle[i]);
   }
-  // delay(200);
+  //ping connected clients
+  if(millis() > timeLastPing + pingPeriod){
+        timeLastPing = millis();
+        //webSocket.connectedClients(true);
+        webSocket.broadcastTXT("c " + flightCommand);
+    }
 }

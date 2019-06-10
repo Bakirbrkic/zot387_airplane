@@ -1,27 +1,44 @@
 //$("#master").
+var ipAdd;
+var enCon = 1;
+var flightSocket;
 
 var throtle = "0000";
 var servo = ["090", "090", "090", "090", "090"];
 var flight = "m:0000s1:000s2:000s3:000s4:000r:0";
 var lastFlight;
-var ipAdd;
 var restart=0;
 
 
 ipAdd = localStorage.getItem("ipAdd");
 $(".ipSpan").html(ipAdd);
 
-var flightSocket = new WebSocket("ws://" + ipAdd, "arduino");
+
+function setupSocket() {
+	flightSocket = new WebSocket("ws://" + ipAdd, "arduino");
+	
+	flightSocket.onerror = function (event) {
+		//flightSocket.close();
+		flightSocket = null;
+		flightSocket = new WebSocket("ws://" + ipAdd, "arduino");
+	}
+
+	flightSocket.onmessage = function (event) {
+		$(".am").html(event.data);
+	}
+}
 
 function fly() {
 	flight = "m:"+throtle+"s0:"+servo[0]+"s1:"+servo[1]+"s2:"+servo[2]+"s3:"+servo[3]+"s4:"+servo[4]+"r:"+restart;
 	$(".fc").html(flight);
 	restart=0;
 	if (flightSocket.readyState === flightSocket.CLOSING || flightSocket.readyState === flightSocket.CLOSED) {
-		$(".data").html("Connection lost, reconnecting...");
+		$(".data").html("Connection lost");
 		$(".ipSpan").css("background-color", "red");
 		flightSocket = null;
-		flightSocket = new WebSocket("ws://" + ipAdd, "arduino");
+		if (enCon) {
+			setupSocket();
+		}
 	} else if (lastFlight != flight && flightSocket.readyState === flightSocket.OPEN) {
 		flightSocket.send(flight);
 		lastFlight = flight;
@@ -31,9 +48,10 @@ function fly() {
 		$(".data").html("Connecting...");
 		$(".ipSpan").css("background-color", "yellow");
 	}
+	$(".am").html("");
 }
 
-
+/**************** SLIDERS **********************************/
 $("#master").on("input", function () {
 	var s = $(this).val();
 	if (s<10) {
@@ -58,21 +76,27 @@ $(".servo, .servoH").on("input", function () {
 	servo[i] = s;
 });
 
-
-setInterval(function() {
-	fly();
-}, 100);
-
-flightSocket.onerror = function (event) {
-	//flightSocket.close();
-	flightSocket = new WebSocket("ws://" + ipAdd, "arduino");
-}
-
-flightSocket.onmessage = function (event) {
-	$(".data").html(event.data);
-	//lastFlight = event.data;
-}
-
+/***************** BUTTONS **********************/
 $(".reconnectBtn").click(function(){
 	restart=1;
 })
+
+$(".sideDisconnectBtn").click(function() {
+	enCon = 0;
+	flightSocket.close();
+	$(this).css("background-color","red");
+})
+
+$(".sideReconnectBtn").click(function() {
+	enCon = 1;
+	setupSocket();
+	$(".sideDisconnectBtn").css("background-color","white");
+	$(".data").html("Connecting...");
+	$(".ipSpan").css("background-color", "yellow");
+})
+
+/*************** MAIN ***************************/
+setupSocket();
+setInterval(function() {
+	fly();
+}, 100);
