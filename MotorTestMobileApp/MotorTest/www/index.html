@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <meta charset="utf-8">
         <!-- Font Awesome --><!-- Font Awesome -->
         <link rel="stylesheet" href="css/font-awesome.min.css">
         <!-- Bootstrap core CSS -->
@@ -56,12 +56,9 @@
 
 
         <div class="app">
-            <div class="container">
+            <div class="container statusWrap">
                 <div class="row">
-                    <div class="col-3 reconnectBtn frBtn">
-                        <span class="fa fa-refresh"></span> Restart Motors
-                    </div>
-                    <div class="col-3">
+                    <div class="col-6">
                         <span class="fa fa-mail"></span> IP: <span class="ipSpan"></span>
                     </div>
                     <div class="col-6 espData">
@@ -74,44 +71,104 @@
             <div class="container masterSliderWrap">
                 <div class="row">
                     <div class="col-12">
-                        <p><span class="fa fa-tachometer"></span> Throtle: <span class="thrVal"></span></p>
+                        <p class="thrValWrap"><span class="fa fa-tachometer"></span> Throtle: <span class="thrVal">0 %</span></p>
                         <input type="range" min="0" max="4095" name="master" value="0" step="40" id="master" class="master">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container buttonWrap">
+                <div class="row">
+                    <div class="restartMotorsBtn col-3">
+                        <div class="frBtn">
+                            <span class="fa fa-refresh"></span>
+                            Restart Motors
+                        </div>
+                    </div>
+                    <div class="resetServosBtn col-3">
+                        <div class="frBtn">
+                            <span class="fa fa-balance-scale"></span>
+                            Reset Servos
+                        </div>
+                    </div>
+                    <div class="disconnectBtn col-3">
+                        <div class="frBtn">
+                            <span class="fa fa-close"></span>
+                            DISCONNECT!
+                        </div>
+                    </div>
+                    <div class="reconnectBtn col-3">
+                        <div class="frBtn">
+                            <span class="fa fa-plug"></span>
+                            Reconnect
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="container servoSliderWrap">
                 <div class="row">
+                    <div class="colapseServoBtn" data-u="up"><span class="fa fa-angle-double-up"></span></div>
+                </div>
+                
+                <div class="row servoColapse">
                     <div class="col-3 servoSlider">
                         <input type="range" min="0" max="180" name="servo0" value="90" step="2" id="servo0" class="servo" data-mnum="0">
-                        <p>wing-left 19</p>
+                        <div class="sp">
+                            <p>wing-left
+                                <span class="serPerc0">90°</span>
+                            </p>    
+                        </div>
                     </div>
                     <div class="col-3 servoSlider">
                         <input type="range" min="0" max="180" name="servo2" value="90" step="2" id="servo2" class="servo" data-mnum="2">
-                        <p>tail-left 17</p>
+                        <div class="sp">
+                            <p>tail-left
+                                <span class="serPerc2">90°</span>
+                            </p>    
+                        </div>
                     </div>
                     <div class="col-3 servoSlider">
                         <input type="range" min="0" max="180" name="servo3" value="90" step="2" id="servo3" class="servo" data-mnum="3">
-                        <p>tail-right 16</p>
+                        <div class="sp">
+                            <p>tail-right
+                                <span class="serPerc3">90°</span>
+                            </p>    
+                        </div>
                     </div>
                     <div class="col-3 servoSlider">
                         <input type="range" min="0" max="180" name="servo1" value="90" step="2" id="servo1" class="servo" data-mnum="1">
-                        <p>wing-right 18</p>
+                        <div class="sp">
+                            <p>wing-right
+                                <span class="serPerc1">90°</span>
+                            </p>    
+                        </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row servoColapse">
                     <div class="col-6 offset-3 servoHSlider">
                         <input type="range" min="0" max="180" name="servo1" value="90" step="2" id="servo4" class="servoH" data-mnum="4">
-                        <p>Rudder (Yaw) 5</p>
+                        <div class="sp">
+                            <p>Rudder (Yaw) 5
+                                <span class="serPerc4">90°</span>
+                            </p>    
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="container commandWrap">
                 <div class="row">
-                    <h2 class="command">flightCommand: <span class="fc"></span></h2>
+                    <div class="colapseCommandBtn" data-u="up"><span class="fa fa-angle-double-up"></span></div>
                 </div>
-                <div class="row">
-                    <h2 class="command">Airplane message: <span class="am"></span></h2>
+                <div class="row commandColapse">
+                    <p class="command">flightCommand: <span class="fc"></span></p>
+                </div>
+                <div class="row commandColapse">
+                    <p class="command">Airplane message: <span class="am"></span></p>
                 </div>
             </div>
+
         </div>
 
 

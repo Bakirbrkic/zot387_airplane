@@ -13,7 +13,7 @@ void megaSerialTaskcode( void * pvParameters );
 
 
 // Constants
-const char* ssid = "Airlines";
+const char* ssid = "CS Airlines - ZoT387";
 const char* password = "09876543";
 String flightCommand = "m:0000s0:090s1:090s2:090s3:090s4:090r:0";
 
@@ -100,7 +100,12 @@ void resetMotors(){
   delay(3000);
 }
 
-
+void callOmar(){
+  Serial.print("ATD0038761085814;\r");//15812345678 your dialing phone number
+  delay(100000);
+  //Serial.println("ATH");
+  delay(200000);
+}
 
 void setup() {
   // Start Serial port
@@ -162,8 +167,13 @@ void setup() {
   // Start WebSocket server and assign callback
   webSocket.begin();
   webSocket.onEvent(onWebSocketEvent);
-
+  /*
+  pinMode(13, OUTPUT);   
+  pinMode(9, OUTPUT); //D9 is SIM900 turn on pin
+  digitalWrite(9,HIGH);
   delay(2000);
+  digitalWrite(9,LOW);
+   */
 }
 
 //megaSerialTaskcode: blinks an LED every 700 ms

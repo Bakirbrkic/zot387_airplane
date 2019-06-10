@@ -136,7 +136,20 @@ body{
     margin-top: 10px;
 }
 /*//////////////////////////////////////////////////*/
+.statusWrap{
+    font-size: medium;
+}
 
+.masterSliderWrap{
+    background-color: rgba(0,0,0,0.4);
+}
+.master{
+    width: 100%;
+}
+
+.servoSliderWrap{
+    background-color: rgba(0,0,0,0.4);
+}
 .servoSlider{
     padding-top: 20px;
 }
@@ -148,18 +161,36 @@ body{
 .servoH{
     width: 100%;
 }
-.masterSliderWrap{
-    background-color: rgba(0,0,0,0.4);
+.colapseServoBtn, .colapseCommandBtn{
+    font-size: medium;
+    width: 25%!important;
+    margin-left: 75%;
+    text-align: right;
+    padding-right: 10px;
 }
+
 .frBtn{
-    padding-top: 5px;
-    background-color: rgba(0,0,0,0.4);   
+    padding: 5px;
+    background-color: rgba(0,0,0,0.4);
+    font-size: medium;
+    font-weight: bold;
+    border-radius: 10px; 
 }
 .frBtn:hover{
     cursor: pointer;
-    transform: scale(1.1);
+    transform: scale(0.99);
     transition: 1s;
 }
-.master{
-    width: 100%;
+.thrValWrap{
+    font-weight: bold;
+}
+
+.sp{
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    font-size: medium;
+}
+.sp span{
+    font-weight: bold;
+    font-size: large;
 }
