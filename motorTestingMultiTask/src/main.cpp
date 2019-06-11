@@ -100,19 +100,14 @@ void resetMotors(){
   delay(3000);
 }
 
-void callOmar(){
-  Serial.print("ATD0038761085814;\r");//15812345678 your dialing phone number
-  delay(100000);
-  //Serial.println("ATH");
-  delay(200000);
-}
+
 
 void setup() {
   // Start Serial port
   Serial.begin(115200);
 
   //create a task that will be executed in the megaSerialTaskcode() function, with priority 1 and executed on core 1
-                      // Task function,name of task,Stack size of task,parameter of the task, priority of the task, Task handle to keep track of created task,pin task to core 
+                             // Task function,name of task,Stack size of task,parameter of the task, priority of the task, Task handle to keep track of created task,pin task to core 
   xTaskCreatePinnedToCore(megaSerialTaskcode,"megaSerialTask",10000,NULL,1,&megaSerialTask,1);
     delay(500); 
 
@@ -167,13 +162,8 @@ void setup() {
   // Start WebSocket server and assign callback
   webSocket.begin();
   webSocket.onEvent(onWebSocketEvent);
-  /*
-  pinMode(13, OUTPUT);   
-  pinMode(9, OUTPUT); //D9 is SIM900 turn on pin
-  digitalWrite(9,HIGH);
+
   delay(2000);
-  digitalWrite(9,LOW);
-   */
 }
 
 //megaSerialTaskcode: blinks an LED every 700 ms

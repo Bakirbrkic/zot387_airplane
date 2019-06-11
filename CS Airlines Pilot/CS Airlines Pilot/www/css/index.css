@@ -135,14 +135,25 @@ body{
     margin-top: 10px;
 }
 /*//////////////////////////////////////////////////*/
+@media(min-width: 576px){
+    .bntLbl{
+        display: none;
+    }
+}
+/*//////////////////////////////////////////////////*/
 .upper{
     max-height: 45vh;
     overflow: hidden;
 }
+.infoBoardContainer{
+    font-size: small;
+}
 .infoItem, .switchItem{
     margin-bottom: 10px;
     text-overflow: ellipsis;
-    overflow: hidden;
+}
+.switchContainer{
+    font-size: medium;
 }
 .switchItem:hover{
     transform: scale(0.95);
