@@ -100,14 +100,12 @@ void resetMotors(){
   delay(3000);
 }
 
-
-
 void setup() {
   // Start Serial port
   Serial.begin(115200);
 
   //create a task that will be executed in the megaSerialTaskcode() function, with priority 1 and executed on core 1
-                             // Task function,name of task,Stack size of task,parameter of the task, priority of the task, Task handle to keep track of created task,pin task to core 
+                      // Task function,name of task,Stack size of task,parameter of the task, priority of the task, Task handle to keep track of created task,pin task to core 
   xTaskCreatePinnedToCore(megaSerialTaskcode,"megaSerialTask",10000,NULL,1,&megaSerialTask,1);
     delay(500); 
 
@@ -162,8 +160,8 @@ void setup() {
   // Start WebSocket server and assign callback
   webSocket.begin();
   webSocket.onEvent(onWebSocketEvent);
-
-  delay(2000);
+ 
+ delay(2000);
 }
 
 //megaSerialTaskcode: blinks an LED every 700 ms
