@@ -108,7 +108,7 @@
 
             <div class="container servoSliderWrap">
                 <div class="row">
-                    <div class="colapseServoBtn" data-u="up"><span class="fa fa-angle-double-up"></span></div>
+                    <div class="colapseServoBtn colapseBtn" data-u="up" data-lbl="Servo Controls" data-colapse="servoColapse"><span class="fa fa-angle-double-up"></span></div>
                 </div>
                 
                 <div class="row servoColapse">
@@ -157,18 +157,95 @@
                 </div>
             </div>
 
+            <div class="container sensorWrap">
+                <div class="row">
+                    <div class="colapseSensorsBtn colapseBtn" data-u="up" data-lbl="Sensor data" data-colapse="sensorColapse"><span class="fa fa-angle-double-up"></span></div>
+                </div>
+                <div class="row sensorColapse">
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-battery-3"></span><br>
+                            <span class="batLvlVal snsVal">75</span> V
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-thermometer"></span> <span class="fa fa-battery-full"></span><br>
+                            <span class="batTempVal snsVal">30</span> °C
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-bolt"></span> <span class="fa fa-battery-half"></span><br>
+                            <span class="chargeVal snsVal">YES / NO</span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-cloud"></span> <span class="fa fa-thermometer"></span><br>
+                            <span class="tempVal snsVal">22</span> °C
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-cloud"></span> <span class="fa fa-tachometer"></span><br>
+                            <span class="airPresVal snsVal">30</span> bar
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-cloud"></span> <span class="fa fa-tint"></span><br>
+                            <span class="humidVal snsVal">30</span> %
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-cloud"></span> <span class="fa fa-arrows-v"></span><br>
+                            <span class="leftVal snsVal">30</span> m
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-eye"></span> <span class="fa fa-arrow-left"></span><br>
+                            <span class="leftVal snsVal">30</span> cm
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-eye"></span> <span class="fa fa-arrow-down"></span><br>
+                            <span class="downVal snsVal">30</span> cm
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-eye"></span> <span class="fa fa-arrow-right"></span><br>
+                            <span class="rightVal snsVal">30</span> cm
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="frBtn ledBtn">
+                            <span class="fa fa-lightbulb-o"></span><br>
+                            <span class="ledVal">ON / OFF</span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="frBtn blicBtn">
+                            <span class="fa fa-sun-o"></span><br>
+                            <span class="blicVal">ON / OFF</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="container commandWrap">
                 <div class="row">
-                    <div class="colapseCommandBtn" data-u="up"><span class="fa fa-angle-double-up"></span></div>
+                    <div class="colapseCommandBtn colapseBtn" data-u="up" data-lbl="Flight command" data-colapse="commandColapse"><span class="fa fa-angle-double-up"></span></div>
                 </div>
                 <div class="row commandColapse">
                     <p class="command">flightCommand: <span class="fc"></span></p>
-                </div>
-                <div class="row commandColapse">
-                    <p class="command">Airplane message: <span class="am"></span></p>
+                    <p class="command">Avion Msg: <span class="am"></span></p>
                 </div>
             </div>
-
         </div>
 
 

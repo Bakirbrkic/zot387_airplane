@@ -24,7 +24,11 @@ function setupSocket() {
 	}
 
 	flightSocket.onmessage = function (event) {
-		$(".am").html(event.data);
+		var data = ""+event.data;
+		$(".am").html(data);
+		$(".batLvlVal").html(data.substring(data.indexOf("battery: ")));
+		$(".downVal").html(data.substring(data.indexOf("d: "), data.indexOf("battery: ")));
+		// [M] Sensors: d: 0000 battery: 14.53
 	}
 }
 
@@ -48,7 +52,7 @@ function fly() {
 		$(".data").html("Connecting...");
 		$(".ipSpan").css("background-color", "yellow");
 	}
-	$(".am").html("");
+	//$(".am").html("");
 }
 
 /**************** SLIDERS **********************************/
@@ -117,31 +121,18 @@ $(".sideReconnectBtn, .reconnectBtn").click(function() {
 })
 
 //sminka btns
-$(".colapseServoBtn").click(function () {
+$(".colapseBtn").click(function () {
 	var d = $(this);
 	if (d.attr("data-u") == "up") {
 		d.attr("data-u","down");
-		d.html('<span class="fa fa-angle-double-down"></span> Show servo controls <span class="fa fa-angle-double-down"></span>');
-		$(".servoColapse").slideUp(200);
+		d.html('<span class="fa fa-angle-double-down"></span> '+d.attr("data-lbl")+' <span class="fa fa-angle-double-down"></span>');
+		$("."+d.attr("data-colapse")).slideUp(200);
 	} else{
 		d.attr("data-u","up");
 		d.html('<span class="fa fa-angle-double-up"></span>');
-		$(".servoColapse").slideDown(200);
+		$("."+d.attr("data-colapse")).slideDown(200);
 	}
 })
-$(".colapseCommandBtn").click(function () {
-	var d = $(this);
-	if (d.attr("data-u") == "up") {
-		d.attr("data-u","down");
-		d.html('<span class="fa fa-angle-double-down"></span> Show flight commands <span class="fa fa-angle-double-down"></span>');
-		$(".commandColapse").slideUp(200);
-	} else{
-		d.attr("data-u","up");
-		d.html('<span class="fa fa-angle-double-up"></span>');
-		$(".commandColapse").slideDown(200);
-	}
-})
-
 /***********************************************/
 
 /*************** MAIN ***************************/
@@ -149,3 +140,5 @@ setupSocket();
 setInterval(function() {
 	fly();
 }, 100);
+
+//temp bat, temp vani, pritisak, vlaznost, altitude, distance leve desne, on of state ledova, on of blic, puni ne puni
