@@ -13,12 +13,15 @@ void namaSerial();
 void espuSerial();
 void pisci();
 
-const int trigPin[]={35,32};
-const int echoPin[]={34,33};
-const int buzzpin=13;
-const int ibattpin=A15;
-const int ledpwmpin=2;
-
+  const int trigPin[]={35,32};
+  const int echoPin[]={34,33};
+  const int buzzpin=13;
+  const int ibattpin=A0;
+  const int ledpwmpin=4;
+  const int nasesuncepin=25;
+  const int chargercurrpin=A15;
+  const int chargercurrmax=5;
+  
 const int nouss=sizeof(trigPin)/sizeof(int);
 
 const int loopdelay=1000;
@@ -30,33 +33,64 @@ BME280::PresUnit presUnit(BME280::PresUnit_Pa);
 int i;
 
 void setup() {
+  pinMode(buzzpin,OUTPUT);
+  pinMode(ibattpin,INPUT);
+  pinMode(ledpwmpin,OUTPUT);
+  pinMode(nasesuncepin,OUTPUT);
+  pinMode(chargercurrpin,INPUT);
+  
   for(i=0;i<nouss;i++){
     pinMode(trigPin[i], OUTPUT);
     pinMode(echoPin[i], INPUT);
   }
-  Serial1.begin(115200);
+  Serial1.begin(9600);
   Serial.begin(9600);
   Wire.begin();
   tempsens.begin();
   if(!tandp.begin())
     Serial.println("BME280 error!");
+//  for(i=0;i<220;i++){
+//    analogWrite(ledpwmpin,i);
+//    delay(100);
+//  }
+  analogWrite(ledpwmpin,220);
+  digitalWrite(nasesuncepin,0);
 }
 
 int dist[nouss];
+bool charging=false;
 float temp,pres,alt,hum;
-double dstemp,batcurr;
+double dstemp=0,ttemp,batcurr,chargercurr;
 
 void loop() {
-  for(i=0;i<nouss;i++){
-    dist[i]=getDist(trigPin[i],echoPin[i]);
-  }
-  tandp.read(pres, temp, hum, tempUnit, presUnit);
+  charging=ischarging(chargercurrpin);
+  Serial.println(charging);
+//  for(i=0;i<nouss;i++){
+//    dist[i]=getDist(trigPin[i],echoPin[i]);
+//  }
+//  tandp.read(pres, temp, hum, tempUnit, presUnit);
+//  dsttemp();
+//  pisci();
+//  namaSerial();
+//  espuSerial();
+//  delay(loopdelay);
+}
+
+void dsttemp(){
   tempsens.requestTemperatures();
-  dstemp=tempsens.getTempCByIndex(0);
-  pisci();
-  namaSerial();
-  espuSerial();
-  delay(loopdelay);
+  ttemp=tempsens.getTempCByIndex(0);
+  if(ttemp!=-127)
+    dstemp=ttemp;
+}
+
+bool ischarging(const int pin){
+  int t1,t2,t3;
+  t1=analogRead(pin);
+  delay(5);
+  t2=analogRead(pin);
+  delay(5);
+  t3=analogRead(pin);
+  return abs(t1-t2)+abs(t2-t3)>2;
 }
 
 double currmet(const int pin, int I){
@@ -64,7 +98,7 @@ double currmet(const int pin, int I){
   double calc;
   calc=raw-511;
   calc=abs(calc);
-  calc=map(calc,0,511,0,I);
+  calc=map(calc,0,511,0.0,I);
   return calc;
 }
 
@@ -110,5 +144,5 @@ void namaSerial(){
 
 void espuSerial(){
   Serial1.print("d:");
-  Serial1.print(dist[0]);
+  Serial1.println(dist[0]);
 }
