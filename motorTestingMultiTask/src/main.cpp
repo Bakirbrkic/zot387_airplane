@@ -29,8 +29,8 @@ const int adcMax=4095;
 const int pwmRes=1023;
 const float maxADCVoltage=3.3;
 
-const int lbnd[]={1742,1160,1619,1615};
-const int ubnd[]={1850,1670,1730,2160};
+const int lbnd[]={1700,1100,1700,1700};//{1742,1160,1619,1615};
+const int ubnd[]={3000,2000,3000,3000};//{1850,1670,1730,2160};
 
 const int lvlmt=60;
 const int uvlmt=120;
@@ -115,7 +115,7 @@ void resetMotors(){
   for(i = 0; i < noMotors;i++){
     motor[i].writeMicroseconds(600);
   }
-  delay(3000);
+  delay(2000);
 }
 
 void setup() {
@@ -168,9 +168,9 @@ void setup() {
     motor[i].attach(motorPin[i]);
   }
   resetMotors();
-  for(i = 0; i < noMotors; i++){
-    motor[i].writeMicroseconds(lbnd[i]);
-  }
+  // for(i = 0; i < noMotors; i++){
+  //   motor[i].writeMicroseconds(lbnd[i]);
+  // }
   for(i = 0; i < noVolans; i++){
     volan[i].attach(volanPin[i]);
   }
@@ -222,6 +222,7 @@ void loop() {
       motor[i].writeMicroseconds(lbnd[i]-100);
     else 
       motor[i].writeMicroseconds(realThrotle);
+      Serial.println(realThrotle);
   }
 
   rawBatteryVoltage=analogRead(batteryVoltagePin);
@@ -229,15 +230,15 @@ void loop() {
   batteryVoltage=Vin*(batteryVoltageR1+batteryVoltageR2)/batteryVoltageR1;
   batteryPercentage=map(batteryVoltage,minBatteryVoltage,maxBatteryVoltage,1,100);
 
-  //// HARD CODANOOOOOO;
   for(i = 0; i < noMotors;i++){
     rawMotorCurrentMeter[i]=analogRead(motorCurrentPin[i]);
     motorCurrent[i]=map(rawMotorCurrentMeter[i],minMotorCurrent[i],adcMax,0.0,maxCurrentMeter);
   }
   
   for(i=0;i<noVolans;i++){
-    volan[i].write(constrain(volanAngle[i],lvlmt,uvlmt));
+    volan[i].write(constrain(map(volanAngle[i],0,180,lvlmt,uvlmt),lvlmt,uvlmt));
   }
+
   //ping connected clients
   if(millis() > timeLastPing + pingPeriod){
         timeLastPing = millis();
