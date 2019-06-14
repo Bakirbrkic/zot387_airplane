@@ -74,6 +74,7 @@ void loop() {
 //  namaSerial();
 //  espuSerial();
 //  delay(loopdelay);
+digitalWrite(nasesuncepin,1);
 }
 
 void dsttemp(){
