@@ -3,9 +3,9 @@ var ipAdd;
 var enCon = 1;
 var flightSocket;
 
-var throtle = "0000";
+var throtle = "000";
 var servo = ["090", "090", "090", "090", "090"];
-var flight = "m:0000s1:000s2:000s3:000s4:000r:0";
+var flight = "m:000w:000t:000e:000r:0";
 var lastFlight;
 var restart=0;
 
@@ -33,7 +33,7 @@ function setupSocket() {
 }
 
 function fly() {
-	flight = "m:"+throtle+"s0:"+servo[0]+"s1:"+servo[1]+"s2:"+servo[2]+"s3:"+servo[3]+"s4:"+servo[4]+"r:"+restart;
+	flight = "m:"+throtle+"w:"+servo[0]+"e:"+servo[2]+"t:"+servo[4]+"r:"+restart;
 	$(".fc").html(flight);
 	restart=0;
 	if (flightSocket.readyState === flightSocket.CLOSING || flightSocket.readyState === flightSocket.CLOSED) {
@@ -58,7 +58,7 @@ function fly() {
 /**************** SLIDERS **********************************/
 $("#master").on("input", function () {
 	var s = $(this).val();
-	var thrPerc = Math.round((s/4080)*100);
+	var thrPerc = s;//Math.round((s/4080)*100);
 	if (s<10) {
 		s = "000" + s;
 	} else if (s<100) {
@@ -67,7 +67,7 @@ $("#master").on("input", function () {
 		s = "0" + s;
 	}
 	throtle = s;
-	$(".thrVal").html(thrPerc + " %");
+	$(".thrVal").html(thrPerc + " ");
 });
 
 $(".servo, .servoH").on("input", function () {
@@ -75,13 +75,44 @@ $(".servo, .servoH").on("input", function () {
 	var id = $(this).attr("id");
 	var s = $("#"+id).val();
 	var servoAng = s + "°"
-	if (s<10) {
-		s = "00" + s;
-	} else if (s<100) {
-		s = "0" + s;
+	
+	if (i == "0") {
+		if (s<10) {
+			s = "00" + s;
+		} else if (s<100) {
+			s = "0" + s;
+		}
+		servo[1] = s;
+		servo[0] = s;
+		$(".serPerc"+i).html(servoAng);
 	}
-	servo[i] = s;
-	$(".serPerc"+i).html(servoAng);
+
+	if (i == "2") {
+		if (s<10) {
+			s = "00" + s;
+		} else if (s<100) {
+			s = "0" + s;
+		}
+		var s2 = 180-s;
+		if (s2<10) {
+			s2 = "00" + s2;
+		} else if (s2<100) {
+			s2 = "0" + s2;
+		}
+		servo[3] = s2;
+		servo[2] = s;
+		$(".serPerc"+i).html(servoAng);
+	}
+
+	if (i == "4") {
+		if (s<10) {
+			s = "00" + s;
+		} else if (s<100) {
+			s = "0" + s;
+		}
+		servo[4] = s;
+		$(".serPerc"+i).html(servoAng);
+	}
 });
 
 /***************** BUTTONS **********************/

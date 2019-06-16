@@ -11,7 +11,6 @@
 TaskHandle_t megaSerialTask;
 void megaSerialTaskcode( void * pvParameters );
 
-
 // Constants
 const char* ssid = "CS Airlines";
 //const char* ssid = "Airlines";
@@ -29,11 +28,11 @@ const int adcMax=4095;
 const int pwmRes=1023;
 const float maxADCVoltage=3.3;
 
-const int lbnd[]={1700,1100,1700,1700};//{1742,1160,1619,1615};
-const int ubnd[]={3000,2000,3000,3000};//{1850,1670,1730,2160};
+const int lbnd[]={1784,1159,1642,1674};//const int lbnd[]={1765,1159,1628,1633};
+const int ubnd[]={1880,1666,1737,2220};
 
-const int lvlmt=60;
-const int uvlmt=120;
+const int lvlmt=30;
+const int uvlmt=150;
 
 const float maxBatteryVoltage=12.45;
 const float minBatteryVoltage=8;
@@ -87,14 +86,14 @@ void onWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
       Serial.printf("[%u] Command: %s\n", num, payload);
       //reinterpret_cast<char*>(payload);
       flightCommand = "" + String(reinterpret_cast<char*>(payload));
-      //flightCommand = "m:0000s0:090s1:090s2:044s3:090s4:090r:0"
+      //flightCommand = "m:0000w:000e:000t:000r:0"
       throtle = flightCommand.substring(2,6).toInt();
-      volanAngle[0] = flightCommand.substring(9,12).toInt();
-      volanAngle[1] = flightCommand.substring(15,18).toInt();
-      volanAngle[2] = flightCommand.substring(21,24).toInt();
-      volanAngle[3] = flightCommand.substring(27,30).toInt();
-      volanAngle[4] = flightCommand.substring(33,36).toInt();
-      refreshBtn = flightCommand.substring(38,39).toInt();
+      volanAngle[0] = flightCommand.substring(8,11).toInt();
+      volanAngle[1] = flightCommand.substring(8,11).toInt();
+      volanAngle[2] = flightCommand.substring(13,16).toInt();
+      volanAngle[3] = 180 - flightCommand.substring(13,16).toInt();
+      volanAngle[4] = flightCommand.substring(18,21).toInt();
+      refreshBtn = flightCommand.substring(23,24).toInt();
       //webSocket.broadcastTXT(flightCommand.c_str());
       //webSocket.sendTXT(0, flightCommand);
       break;
@@ -168,16 +167,17 @@ void setup() {
     motor[i].attach(motorPin[i]);
   }
   resetMotors();
-  // for(i = 0; i < noMotors; i++){
-  //   motor[i].writeMicroseconds(lbnd[i]);
-  // }
+  
   for(i = 0; i < noVolans; i++){
     volan[i].attach(volanPin[i]);
   }
+  
   pinMode(batteryVoltagePin,INPUT);
+  
   for(i = 0; i < noMotors; i++){
     pinMode(motorCurrentPin[i],INPUT);
   }
+  
   // Start WebSocket server and assign callback
   webSocket.begin();
   webSocket.onEvent(onWebSocketEvent);
@@ -216,14 +216,15 @@ void loop() {
     resetMotors();
 
   tempThrotle=throtle;
+  
   for(i = 0; i < noMotors;i++){
-    realThrotle=map(tempThrotle,0,adcMax,lbnd[i],ubnd[i]);
+    realThrotle=map(tempThrotle,0,100,lbnd[i],ubnd[i]);
     if(tempThrotle==0)
       motor[i].writeMicroseconds(lbnd[i]-100);
-    else 
+    else
       motor[i].writeMicroseconds(realThrotle);
-      Serial.println(realThrotle);
   }
+  //motor[0].writeMicroseconds(throtle);
 
   rawBatteryVoltage=analogRead(batteryVoltagePin);
   float Vin=map(rawBatteryVoltage,0,adcMax,0.0,maxADCVoltage);

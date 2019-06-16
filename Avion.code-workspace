@@ -27,6 +27,10 @@
 		{
 			"name": "motorTestingMultiTask",
 			"path": "motorTestingMultiTask"
+		},
+		{
+			"name": "motorTestingOtaMultiTaskWire",
+			"path": "motorTestingOtaMultiTaskWire"
 		}
 	],
 	"settings": {
