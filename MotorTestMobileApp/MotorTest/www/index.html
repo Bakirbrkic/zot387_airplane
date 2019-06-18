@@ -71,8 +71,8 @@
             <div class="container masterSliderWrap">
                 <div class="row">
                     <div class="col-12">
-                        <p class="thrValWrap"><span class="fa fa-tachometer"></span> Throtle: <span class="thrVal">0 %</span></p>
-                        <input type="range" min="0" max="4095" name="master" value="0" step="40" id="master" class="master">
+                        <p class="thrValWrap"><span class="fa fa-tachometer"></span> Throtle: <span class="thrVal">0 </span></p>
+                        <input type="range" min="0" max="100" name="master" value="0" step="1" id="master" class="master">
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
                 </div>
                 
                 <div class="row servoColapse">
-                    <div class="col-3 servoSlider">
+                    <div class="col-6 servoSlider">
                         <input type="range" min="0" max="180" name="servo0" value="90" step="2" id="servo0" class="servo" data-mnum="0">
                         <div class="sp">
                             <p>wing-left
@@ -120,11 +120,20 @@
                             </p>    
                         </div>
                     </div>
-                    <div class="col-3 servoSlider">
+                    <div class="col-6 servoSlider">
                         <input type="range" min="0" max="180" name="servo2" value="90" step="2" id="servo2" class="servo" data-mnum="2">
                         <div class="sp">
                             <p>tail-left
                                 <span class="serPerc2">90°</span>
+                            </p>    
+                        </div>
+                    </div>
+                    <!--
+                    <div class="col-3 servoSlider">
+                        <input type="range" min="0" max="180" name="servo1" value="90" step="2" id="servo1" class="servo" data-mnum="1">
+                        <div class="sp">
+                            <p>wing-right
+                                <span class="serPerc1">90°</span>
                             </p>    
                         </div>
                     </div>
@@ -135,15 +144,7 @@
                                 <span class="serPerc3">90°</span>
                             </p>    
                         </div>
-                    </div>
-                    <div class="col-3 servoSlider">
-                        <input type="range" min="0" max="180" name="servo1" value="90" step="2" id="servo1" class="servo" data-mnum="1">
-                        <div class="sp">
-                            <p>wing-right
-                                <span class="serPerc1">90°</span>
-                            </p>    
-                        </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="row servoColapse">
                     <div class="col-6 offset-3 servoHSlider">
