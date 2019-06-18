@@ -13,9 +13,6 @@
 TaskHandle_t megaSerialTask;
 void megaSerialTaskcode( void * pvParameters );
 
-//Gyro
-MPU6050 mpu6050(Wire);
-
 // Constants
 const char* ssid = "CS Airlines";
 //const char* ssid = "Airlines";
@@ -66,6 +63,8 @@ float motorCurrent[4],batteryVoltage;
 WebSocketsServer webSocket = WebSocketsServer(80);
 int pingPeriod = 200;
 unsigned long timeLastPing = 0;
+
+MPU6050 mpu6050(Wire); //Gyro
 
 String megaSerialString;
 
@@ -250,6 +249,7 @@ void loop() {
     volan[i].write(constrain(map(volanAngle[i],0,180,lvlmt,uvlmt),lvlmt,uvlmt));
   }
 
+  //get Gyro reading
   mpu6050.update();
 
   //ping connected clients
@@ -257,6 +257,6 @@ void loop() {
         timeLastPing = millis();
         webSocket.broadcastTXT(megaSerialString + " rawBatteryVoltage: " + String(rawBatteryVoltage) +
          " batteryVoltage: " + String(batteryVoltage) + " bateryPercantage: " + String(batteryPercentage) +
-          " Vin " + String(Vin));// + "Angle X: " + String(mpu6050.getAngleX()) + "Angle Y: " + String(mpu6050.getAngleY());
+          " Vin " + String(Vin)) + "Angle X: " + String(mpu6050.getAngleX()) + "Angle Y: " + String(mpu6050.getAngleY());
     }
 }
