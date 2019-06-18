@@ -3,9 +3,9 @@ var ipAdd;
 var enCon = 1;
 var flightSocket;
 
-var throtle = "000";
+var throtle = "0000";
 var servo = ["090", "090", "090", "090", "090"];
-var flight = "m:000w:000t:000e:000r:0";
+var flight = "m:0000w:000t:000e:000r:0";
 var lastFlight;
 var restart=0;
 

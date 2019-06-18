@@ -153,15 +153,16 @@ body{
 .servoSlider{
     padding-top: 20px;
 }
-.servo{
+.servoCss{
     -webkit-appearance: slider-vertical; /* WebKit */
     height: 35vh;
     width: 100%;
 }
-.wingsSlider{
-    -webkit-appearance: slider-horizontal!important;
-}
 .servoH{
+    width: 100%;
+}
+.servoCssH{
+    min-height: 60%;
     width: 100%;
 }
 
