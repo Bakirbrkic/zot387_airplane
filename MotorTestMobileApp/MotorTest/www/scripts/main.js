@@ -26,8 +26,10 @@ function setupSocket() {
 	flightSocket.onmessage = function (event) {
 		var data = ""+event.data;
 		$(".am").html(data);
-		$(".batLvlVal").html(data.substring(data.indexOf("battery: ")));
-		$(".downVal").html(data.substring(data.indexOf("d: "), data.indexOf("battery: ")));
+		//$(".batLvlVal").html(data.substring(data.indexOf("battery: ")));
+		//$(".downVal").html(data.substring(data.indexOf("d: "), data.indexOf("battery: ")));
+		$(".gyroTiltVal").html(data.substring(data.indexOf("Angle X: ")+9, data.indexOf("Angle Y: ")));
+		$(".gyroElevVal").html(data.substring(data.indexOf("Angle Y: ")+9));
 		// [M] Sensors: d: 0000 battery: 14.53
 	}
 }

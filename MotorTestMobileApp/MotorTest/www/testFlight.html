@@ -88,9 +88,9 @@
                 </div>
             </div>
 
-            <div class="container servoSliderWrap">
+            <div class="container-fluid servoSliderWrap testFlightWrap">
 
-                <div class="row">
+                <div class="row infoRow">
                     <div class="col-3">
                         <span class="fa fa-mail"></span> IP: <span class="ipSpan"></span>
                     </div>
@@ -103,23 +103,51 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-10 offset-1">
+                    <div class="col-10 offset-1 serBorV">
                         <input type="range" min="0" max="100" name="master" value="0" step="1" id="master" class="master">
                     </div>
                 </div>
                 
                 <div class="row servoColapse">
-                    <div class="col-6 servoSlider">
-                        <input id="wingsSlider" type="range" min="0" max="180" name="servo0" value="90" step="2" id="servo0" class="servo" data-mnum="0">
-                        <div class="sp">
+                    <div class="col-6 offset-1 servoSlider serBor">
+                        <input type="range" min="0" max="180" name="servo0" value="90" step="2" id="servo0" class="servo wingsSlider" data-mnum="0">
+                        <div class="sp infoRow">
                             <p>wings
                                 <span class="serPerc0">90°</span>
                             </p>    
                         </div>
                     </div>
-                    <div class="col-6 servoSlider">
+                    <div class="col-2">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="snsFBtn">
+                                    <span class="fa fa-battery-3"></span>
+                                    <span class="batLvlVal snsVal">75</span> V
+                                </div>
+                            </div><br>
+                            <div class="col-12">
+                                <div class="snsFBtn">
+                                    <span class="fa fa-thermometer"></span> <span class="fa fa-battery-full"></span>
+                                    <span class="batTempVal snsVal">30</span> °C
+                                </div>
+                            </div><br>
+                            <div class="col-12">
+                                <div class="snsFBtn">
+                                    <span class="fa fa-arrows-h"></span> <span class="fa fa-balance-scale"></span>
+                                    <span class="gyroTiltVal snsVal">22</span> °
+                                </div>
+                            </div><br>
+                            <div class="col-12">
+                                <div class="snsFBtn">
+                                    <span class="fa fa-arrows-v"></span> <span class="fa fa-balance-scale"></span> 
+                                    <span class="gyroElevVal snsVal">0</span> °
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 servoSlider serBor">
                         <input type="range" min="0" max="180" name="servo2" value="90" step="2" id="servo2" class="servo" data-mnum="2">
-                        <div class="sp">
+                        <div class="sp infoRow">
                             <p>tail
                                 <span class="serPerc2">90°</span>
                             </p>    
@@ -129,49 +157,10 @@
                 <div class="row servoColapse">
                     <div class="col-6 offset-3 servoHSlider">
                         <input type="range" min="0" max="180" name="servo1" value="90" step="2" id="servo4" class="servoH" data-mnum="4">
-                        <div class="sp">
+                        <div class="sp infoRow">
                             <p>Rudder (Yaw) 5
                                 <span class="serPerc4">90°</span>
                             </p>    
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2">
-                        <div class="snsFBtn">
-                            <span class="fa fa-battery-3"></span><br>
-                            <span class="batLvlVal snsVal">75</span> V
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="snsFBtn">
-                            <span class="fa fa-thermometer"></span> <span class="fa fa-battery-full"></span><br>
-                            <span class="batTempVal snsVal">30</span> °C
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="snsFBtn">
-                            <span class="fa fa-arrows-h"></span> <span class="fa fa-balance-scale"></span><br>
-                            <span class="gyroTiltVal snsVal">22</span> °
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="snsFBtn">
-                            <span class="fa fa-arrows-v"></span> <span class="fa fa-balance-scale"></span> <br>
-                            <span class="gyroYawVal snsVal">0</span> °
-                        </div>
-                    </div>
-
-                    <div class="col-2">
-                        <div class="frFBtn ledBtn">
-                            <span class="fa fa-lightbulb-o"></span><br>
-                            <span class="ledVal">ON / OFF</span>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="frFBtn blicBtn">
-                            <span class="fa fa-sun-o"></span><br>
-                            <span class="blicVal">ON / OFF</span>
                         </div>
                     </div>
                 </div>

@@ -158,8 +158,8 @@ body{
     height: 35vh;
     width: 100%;
 }
-#wingsSlider{
-    -webkit-appearance: slider-horizontal;
+.wingsSlider{
+    -webkit-appearance: slider-horizontal!important;
 }
 .servoH{
     width: 100%;
@@ -227,4 +227,26 @@ body{
 .sp span{
     font-weight: bold;
     font-size: large;
+}
+/******************************************************/
+.infoRow{
+    font-size: small!important;
+}
+.infoRow *{
+    font-size: small!important;
+}
+.testFlightWrap *{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.serBor{
+    border: solid 1px black;
+}
+.serBorV{
+    border: solid 1px black;
+}
+.serBorV input{
+    height: 50px;
 }

@@ -14,8 +14,8 @@ TaskHandle_t megaSerialTask;
 void megaSerialTaskcode( void * pvParameters );
 
 // Constants
-const char* ssid = "CS Airlines";
-//const char* ssid = "Airlines";
+//const char* ssid = "CS Airlines";
+const char* ssid = "Airlines";
 const char* password = "09876543";
 String flightCommand = "m:0000s0:090s1:090s2:090s3:090s4:090r:0";
 
@@ -255,8 +255,7 @@ void loop() {
   //ping connected clients
   if(millis() > timeLastPing + pingPeriod){
         timeLastPing = millis();
-        webSocket.broadcastTXT(megaSerialString + " rawBatteryVoltage: " + String(rawBatteryVoltage) +
-         " batteryVoltage: " + String(batteryVoltage) + " bateryPercantage: " + String(batteryPercentage) +
-          " Vin " + String(Vin)) + "Angle X: " + String(mpu6050.getAngleX()) + "Angle Y: " + String(mpu6050.getAngleY());
+        webSocket.broadcastTXT(megaSerialString + "Angle X: " + String(mpu6050.getAngleX()) + "Angle Y: " + String(mpu6050.getAngleY()));
+        //"+ rawBatteryVoltage: " + String(rawBatteryVoltage) + " batteryVoltage: " + String(batteryVoltage) + " bateryPercantage: " + String(batteryPercentage) +" Vin " + String(Vin)) + 
     }
 }

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- Font Awesome --><!-- Font Awesome -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="css/mdb.min.css" rel="stylesheet">
+
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Motor Test</title>
+    </head>
+    <body>
+        <div class="container-fluid topBar">
+            <a class="appNav col-xs-2"><span class="fa fa-navicon"></span></a>
+            <a class="topTitle col-xs-8">Lab Tests</a>
+            <a class="moreOpt col-xs-2"><span class="fa fa-cubes"></span></a>
+        </div>
+
+        <div class="sideBarWrap container-fluid col-xs-12">
+            <!--Card-->
+            <div class="card sideBar">
+                <!--Card content-->
+                <!--Title-->
+                <div class="card-title SideBarTitle">
+                    <a class="closeSideBar"><span class="fa fa-arrow-left"></span></a>
+                </div>
+                <div class="card-body">
+                    <!--Text-->
+                    <div class="card-text">
+                        <div class="sideTitle">Lab tests</div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="sideBtn sideDisconnectBtn">
+                                    <h2><span class="fa fa-close"></span></h2>
+                                    Disconnect!
+                                </div>
+                                <div class="sideBtn sideReconnectBtn">
+                                    <h2><span class="fa fa-plug"></span></h2>
+                                    Reconnect!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sideItem sideHomeBtn"><span class="fa fa-flask fa-fw"></span> Lab Tests</div>
+                        <div class="sideItem sideFlightBtn"><span class="fa fa-plane fa-fw"></span> Flight Test</div>
+                        <div class="sideItem sidePassengerBtn"><span class="fa fa-eye fa-fw"></span> Passenger Mode</div>
+                    </div>
+                </div>
+                <!--/.Card content-->
+            </div>
+            <!--/.Card-->
+        </div>
+
+
+        <div class="app">
+            <div class="container statusWrap">
+                <div class="row">
+                    <div class="col-6">
+                        <span class="fa fa-mail"></span> IP: <span class="ipSpan"></span>
+                    </div>
+                    <div class="col-6 espData">
+                        <span class="fa fa-plug"></span>
+                        <span class="data"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container buttonWrap">
+                <div class="row">
+                    <div class="disconnectBtn col-3">
+                        <div class="frBtn">
+                            <span class="fa fa-close"></span>
+                            DISCONNECT!
+                        </div>
+                    </div>
+                    <div class="reconnectBtn col-3">
+                        <div class="frBtn">
+                            <span class="fa fa-plug"></span>
+                            Reconnect
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container sensorWrap">
+                <div class="row">
+                    <div class="colapseSensorsBtn colapseBtn" data-u="up" data-lbl="Sensor data" data-colapse="sensorColapse"><span class="fa fa-angle-double-up"></span></div>
+                </div>
+                <div class="row sensorColapse">
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-battery-3"></span><br>
+                            <span class="batLvlVal snsVal">75</span> V
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-thermometer"></span> <span class="fa fa-battery-full"></span><br>
+                            <span class="batTempVal snsVal">30</span> °C
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-arrows-h"></span> <span class="fa fa-balance-scale"></span><br>
+                            <span class="gyroTiltVal snsVal">22</span> °
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-arrows-v"></span> <span class="fa fa-balance-scale"></span> <br>
+                            <span class="gyroElevVal snsVal">0</span> °
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-cloud"></span> <span class="fa fa-thermometer"></span><br>
+                            <span class="tempVal snsVal">22</span> °C
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-cloud"></span> <span class="fa fa-tachometer"></span><br>
+                            <span class="airPresVal snsVal">30</span> bar
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-cloud"></span> <span class="fa fa-tint"></span><br>
+                            <span class="humidVal snsVal">30</span> %
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-cloud"></span> <span class="fa fa-arrows-v"></span><br>
+                            <span class="leftVal snsVal">30</span> m
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-eye"></span> <span class="fa fa-user"></span><br>
+                            <span class="noseSmsVal snsVal">30</span> cm
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="snsBtn">
+                            <span class="fa fa-eye"></span> <span class="fa fa-fire"></span><br>
+                            <span class="tailSmsVal snsVal">30</span> cm
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="frBtn ledBtn">
+                            <span class="fa fa-lightbulb-o"></span><br>
+                            <span class="ledVal">ON / OFF</span>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="frBtn blicBtn">
+                            <span class="fa fa-sun-o"></span><br>
+                            <span class="blicVal">ON / OFF</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container commandWrap">
+                <div class="row">
+                    <div class="colapseCommandBtn colapseBtn" data-u="up" data-lbl="Flight command" data-colapse="commandColapse"><span class="fa fa-angle-double-up"></span></div>
+                </div>
+                <div class="row commandColapse">
+                    <p class="command">flightCommand: <span class="fc"></span></p>
+                    <p class="command">Avion Msg: <span class="am"></span></p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="scripts/platformOverrides.js"></script>
+        <script type="text/javascript" src="scripts/jquery.js"></script>
+        <script type="text/javascript" src="scripts/index.js"></script>
+        <script type="text/javascript" src="scripts/navbar.js"></script>
+        <script type="text/javascript" src="scripts/main.js"></script>
+    </body>
+</html>
