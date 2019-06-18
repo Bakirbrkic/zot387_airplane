@@ -158,6 +158,9 @@ body{
     height: 35vh;
     width: 100%;
 }
+#wingsSlider{
+    -webkit-appearance: slider-horizontal;
+}
 .servoH{
     width: 100%;
 }
@@ -193,6 +196,21 @@ body{
     transform: scale(0.99);
     transition: 1s;
 }
+
+.frFBtn, .snsFBtn{
+    padding: 5px;
+    background-color: white;
+    font-size: large;
+    font-weight: bold;
+    border-radius: 10px; 
+    margin-bottom: 3px;
+}
+.frFBtn:hover{
+    cursor: pointer;
+    transform: scale(0.99);
+    transition: 1s;
+}
+
 .snsVal{
     font-weight: normal;
 }

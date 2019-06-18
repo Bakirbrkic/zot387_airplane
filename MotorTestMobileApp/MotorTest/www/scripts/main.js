@@ -67,7 +67,7 @@ $("#master").on("input", function () {
 		s = "0" + s;
 	}
 	throtle = s;
-	$(".thrVal").html(thrPerc + " ");
+	$(".thrVal").html(thrPerc + " %");
 });
 
 $(".servo, .servoH").on("input", function () {
@@ -118,8 +118,8 @@ $(".servo, .servoH").on("input", function () {
 /***************** BUTTONS **********************/
 $(".restartMotorsBtn").click(function(){
 	restart=1;
-	$(".master").val(408);
-	$(".thrVal").html(Math.round((408/4080)*100) + " %");
+	$(".master").val(0);
+	$(".thrVal").html(0 + " %");
 })
 $(".resetServosBtn").click(function(){
 	for (var i = servo.length - 1; i >= 0; i--) {

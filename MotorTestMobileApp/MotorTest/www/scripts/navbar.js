@@ -31,3 +31,12 @@ $(".moreOpt").click(function () {
     localStorage.setItem("ipAdd", ipAdd);
 })
 ////////////////////////////////////////////////////////////////////
+$(".sideHomeBtn").click(function () {
+    window.location = "labTest.html";
+})
+$(".sideFlightBtn").click(function () {
+    window.location = "testFlight.html";
+})
+$(".sidePassengerBtn").click(function () {
+    window.location = "passengerMode.html";
+})
