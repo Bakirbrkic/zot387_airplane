@@ -37,7 +37,7 @@ const int lvlmt=30;
 const int uvlmt=150;
 
 const float maxBatteryVoltage=12.45;
-const float minBatteryVoltage=8;
+const float minBatteryVoltage=9.4;
 const long batteryVoltageR1=9940;
 const long batteryVoltageR2=38200;
 
@@ -255,7 +255,10 @@ void loop() {
   //ping connected clients
   if(millis() > timeLastPing + pingPeriod){
         timeLastPing = millis();
-        webSocket.broadcastTXT(megaSerialString + "Angle X: " + String(mpu6050.getAngleX()) + "Angle Y: " + String(mpu6050.getAngleY()));
-        //"+ rawBatteryVoltage: " + String(rawBatteryVoltage) + " batteryVoltage: " + String(batteryVoltage) + " bateryPercantage: " + String(batteryPercentage) +" Vin " + String(Vin)) + 
+        webSocket.broadcastTXT(megaSerialString + "Angle X: " + String(mpu6050.getAngleX()) + "Angle Y: " + String(mpu6050.getAngleY()) + 
+        "getGyroAngleX: " + String(mpu6050.getGyroAngleX() ) + "getGyroAngleY: " + String(mpu6050.getGyroAngleY()) +
+        "GyroX: " + String(mpu6050.getGyroX() ) + "GyroY: " + String(mpu6050.getGyroY()) +
+        "RawGyroX: " + String(mpu6050.getRawGyroX() ) + "RawGyroY: " + String(mpu6050.getRawGyroY()) +
+        "rawBatteryVoltage: " + String(rawBatteryVoltage) + " batteryVoltage: " + String(batteryVoltage) + " bateryPercantage: " + String(batteryPercentage) + " Vin " + String(Vin)); 
     }
 }
