@@ -38,6 +38,7 @@ const int uvlmt=150;
 
 const float maxBatteryVoltage=12.45;
 const float minBatteryVoltage=9.4;
+const double batteryCoef=100.0/(maxBatteryVoltage-minBatteryVoltage);
 const long batteryVoltageR1=9940;
 const long batteryVoltageR2=38200;
 
@@ -51,9 +52,11 @@ Servo volan[noVolans];
 const int freq = 5000;
 const int resolution = 10;
 
+int wing,elevator,rudder;
 
 // Globals
 int i,refreshBtn = 0;
+int wingsTogether = 1;
 
 int volanAngle[] = {90,90,90,90,90};
 long throtle, realThrotle, tempThrotle;
@@ -90,14 +93,23 @@ void onWebSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t leng
       Serial.printf("[%u] Command: %s\n", num, payload);
       //reinterpret_cast<char*>(payload);
       flightCommand = "" + String(reinterpret_cast<char*>(payload));
-      //flightCommand = "m:0000w:000e:000t:000r:0"
+      //flightCommand = "m:0000w:000e:000t:000r:0z:1"
       throtle = flightCommand.substring(2,6).toInt();
-      volanAngle[0] = flightCommand.substring(8,11).toInt();
-      volanAngle[1] = flightCommand.substring(8,11).toInt();
-      volanAngle[2] = flightCommand.substring(13,16).toInt();
-      volanAngle[3] = 180 - flightCommand.substring(13,16).toInt();
-      volanAngle[4] = flightCommand.substring(18,21).toInt();
+      wing=flightCommand.substring(8,11).toInt();
+      elevator=flightCommand.substring(13,16).toInt();
+      rudder=flightCommand.substring(18,21).toInt();
       refreshBtn = flightCommand.substring(23,24).toInt();
+      wingsTogether = flightCommand.substring(26,27).toInt();
+
+      volanAngle[0] = 180 - wing;
+      if (wingsTogether)
+        volanAngle[1] = wing;
+      else
+        volanAngle[1] = 180 - wing;
+      volanAngle[2] = 180 - elevator;
+      volanAngle[3] = elevator;
+      volanAngle[4] = rudder;
+
       //webSocket.broadcastTXT(flightCommand.c_str());
       //webSocket.sendTXT(0, flightCommand);
       break;
@@ -128,8 +140,6 @@ void setup() {
 
   // start Gyro
   Wire.begin();
-  mpu6050.begin();
-  mpu6050.calcGyroOffsets(true);
 
   //create a task that will be executed in the megaSerialTaskcode() function, with priority 1 and executed on core 1
                       // Task function,name of task,Stack size of task,parameter of the task, priority of the task, Task handle to keep track of created task,pin task to core 
@@ -181,6 +191,8 @@ void setup() {
     volan[i].attach(volanPin[i]);
   }
   
+  mpu6050.begin();
+  mpu6050.calcGyroOffsets();
   pinMode(batteryVoltagePin,INPUT);
   
   for(i = 0; i < noMotors; i++){
@@ -225,7 +237,7 @@ void loop() {
     resetMotors();
 
   tempThrotle=throtle;
-  
+  /*
   for(i = 0; i < noMotors;i++){
     realThrotle=map(tempThrotle,0,100,lbnd[i],ubnd[i]);
     if(tempThrotle==0)
@@ -233,12 +245,23 @@ void loop() {
     else
       motor[i].writeMicroseconds(realThrotle);
   }
-  //motor[0].writeMicroseconds(throtle);
+  */
+  delay(2000);
+  motor[0].write(0);
+  delay(2000);
+  motor[0].write(1);
+  delay(2000);
+  motor[0].write(90);
+  delay(2000);
+  motor[0].write(180);
+  delay(2000);
+  motor[0].write(360);
 
   rawBatteryVoltage=analogRead(batteryVoltagePin);
-  float Vin=map(rawBatteryVoltage,0,adcMax,0.0,maxADCVoltage);
+  float Vin=rawBatteryVoltage*maxADCVoltage/adcMax;
   batteryVoltage=Vin*(batteryVoltageR1+batteryVoltageR2)/batteryVoltageR1;
-  batteryPercentage=map(batteryVoltage,minBatteryVoltage,maxBatteryVoltage,1,100);
+  batteryPercentage=batteryVoltage*batteryCoef-minBatteryVoltage*batteryCoef;
+  batteryPercentage=constrain(batteryPercentage,1,100);
 
   for(i = 0; i < noMotors;i++){
     rawMotorCurrentMeter[i]=analogRead(motorCurrentPin[i]);
@@ -254,11 +277,22 @@ void loop() {
 
   //ping connected clients
   if(millis() > timeLastPing + pingPeriod){
+    double iks=mpu6050.getAngleX();
+    double ipsilon=mpu6050.getAngleY();
         timeLastPing = millis();
-        webSocket.broadcastTXT(megaSerialString + "Angle X: " + String(mpu6050.getAngleX()) + "Angle Y: " + String(mpu6050.getAngleY()) + 
-        "getGyroAngleX: " + String(mpu6050.getGyroAngleX() ) + "getGyroAngleY: " + String(mpu6050.getGyroAngleY()) +
-        "GyroX: " + String(mpu6050.getGyroX() ) + "GyroY: " + String(mpu6050.getGyroY()) +
-        "RawGyroX: " + String(mpu6050.getRawGyroX() ) + "RawGyroY: " + String(mpu6050.getRawGyroY()) +
-        "rawBatteryVoltage: " + String(rawBatteryVoltage) + " batteryVoltage: " + String(batteryVoltage) + " bateryPercantage: " + String(batteryPercentage) + " Vin " + String(Vin)); 
+        webSocket.broadcastTXT(megaSerialString + 
+        "offsetX: " + String(mpu6050.getGyroXoffset() ) + "offsetY: " + String(mpu6050.getGyroYoffset()) +
+        "rawBatteryVoltage: " + String(rawBatteryVoltage) + " batteryVoltage: " + String(batteryVoltage) + " bateryPercantage: " + String(batteryPercentage) + " Vin " + String(Vin)+
+        "Angle X: " + String(iks) + "Angle Y: " + String(ipsilon)); 
     }
+    // if(millis()>30000){
+    //   for(i = 0; i < noMotors;i++){
+    //     motor[i].writeMicroseconds(lbnd[i]-100);
+    //   }
+    //   volan[0].write(90);
+    //   volan[1].write(90);
+    //   volan[2].write(uvlmt);
+    //   volan[3].write(lvlmt);
+    //   while(1);
+    // }
 }
