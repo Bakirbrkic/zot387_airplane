@@ -5,7 +5,8 @@ var flightSocket;
 
 var throtle = "0000";
 var servo = ["090", "090", "090", "090", "090"];
-var flight = "m:0000w:000t:000e:000r:0";
+var flight = "m:0000w:090t:090e:090r:0z:1";
+var takeOff = 1;
 var lastFlight;
 var restart=0;
 
@@ -35,7 +36,7 @@ function setupSocket() {
 }
 
 function fly() {
-	flight = "m:"+throtle+"w:"+servo[0]+"e:"+servo[2]+"t:"+servo[4]+"r:"+restart;
+	flight = "m:"+throtle+"w:"+servo[0]+"e:"+servo[2]+"t:"+servo[4]+"r:"+restart+"z:"+takeOff;
 	$(".fc").html(flight);
 	restart=0;
 	if (flightSocket.readyState === flightSocket.CLOSING || flightSocket.readyState === flightSocket.CLOSED) {
@@ -53,6 +54,9 @@ function fly() {
 	} else if (flightSocket.readyState === flightSocket.CONNECTING) {
 		$(".data").html("Connecting...");
 		$(".ipSpan").css("background-color", "yellow");
+	}
+	if (takeOff) {
+		$(".TakeOffBtn .frBtn").css("background-color", "red");
 	}
 	//$(".am").html("");
 }
@@ -130,6 +134,18 @@ $(".resetServosBtn").click(function(){
 		$("#servo"+i).val(90);
 	}
 	$(".servoH").val(90);
+})
+$(".TakeOffBtn").click(function() {
+	if (takeOff) {
+		takeOff = 0;
+		$(".TakeOffBtn .frBtn").css("background-color", "cyan");
+	} else {
+		takeOff = 1;
+		$(".TakeOffBtn .frBtn").css("background-color", "red");
+	}
+	servo[0] = "090";
+	$(".serPerc0").html(90+ "°");
+	$("#servo0").val(90);
 })
 
 $(".sideDisconnectBtn").click(function() {

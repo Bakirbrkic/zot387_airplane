@@ -16,7 +16,7 @@
 .appNav{
     float:left;
 }
-.moreOpt{
+.moreOpt, .TakeOffBtnTop{
     float:right;
 }
 /*************************************************************************/
