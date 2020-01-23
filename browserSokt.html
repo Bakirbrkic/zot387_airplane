@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Web Socket</title>
-	<script src="http://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="jq.js"></script>
 </head>
 <body>
 
@@ -21,8 +21,7 @@
 		function fly() {
 			flight = "led:"+ledState+"ser:"+servo;
 			if (lastFlight != flight) {
-				flightSocket.send(flight);
-				lastFlight = flight;
+				flightSocket.send(ledState);
 			}
 		}
 
@@ -33,6 +32,7 @@
 				$(this).attr("data-light","1")
 			}
 			ledState = $(this).attr("data-light");
+			flightSocket.send(ledState);
 		})
 
 		$(".servo").on("input", function () {
@@ -45,13 +45,11 @@
 			servo = s;
 		})
 
-		var ipAdd = "192.168.43.21"
+		var ipAdd = "192.168.4.1"
 
 		var flightSocket = new WebSocket("ws://" + ipAdd, "arduino");
 
-		setInterval(function() {
-		  	fly();
-		 }, 100);
+		
 
 		flightSocket.onerror = function (event) {
 			flightSocket.close();
