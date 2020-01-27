@@ -1,2 +1,2 @@
 # esp32airplane
-Graduation project semi-autonomus airplane controlled by ESP32and mobile application
+Graduation project semi-autonomus airplane controlled by ESP32 and mobile application
